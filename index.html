@@ -1,0 +1,111 @@
+-<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年度 成人式</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .row {
+            margin-bottom: 15px;
+        }
+        input, select, button {
+            padding: 8px;
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        .label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .status-box {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #aaa;
+        }
+    </style>
+</head>
+<body>
+
+<h1>2026年度 成人式</h1>
+
+<!-- 名前・番号検索 -->
+<div class="row">
+    <span class="label">名前入力</span>
+    <input type="text" id="nameInput">
+    <button>検索</button>
+</div>
+
+<div class="row">
+    <span class="label">番号入力</span>
+    <input type="text" id="numberInput">
+    <button>検索</button>
+</div>
+
+<!-- 入店情報 -->
+<div class="row">
+    <span class="label">入店時間:</span>
+    <span id="entryTime">--:--</span>
+</div>
+
+<div class="row">
+    <span class="label">番号:</span>
+    <span id="displayNumber">---</span>
+</div>
+
+<div class="row">
+    <span class="label">名前:</span>
+    <span id="displayName">---</span>
+</div>
+
+<div class="row">
+    <span class="label">備考:</span>
+    <span id="displayNote">---</span>
+</div>
+
+<!-- お直し -->
+<div class="row">
+    <span class="label">お直し</span>
+    <label><input type="radio" name="fix" value="あり"> あり</label>
+    <label><input type="radio" name="fix" value="なし"> なし</label>
+</div>
+
+<!-- 担当者選択 -->
+<div class="row">
+    <span class="label">着付け:</span>
+    <select id="kimonoSelect">
+        <option value="">選択してください</option>
+    </select>
+</div>
+
+<div class="row">
+    <span class="label">メイク:</span>
+    <select id="makeSelect">
+        <option value="">選択してください</option>
+    </select>
+</div>
+
+<div class="row">
+    <span class="label">ヘアー:</span>
+    <select id="hairSelect">
+        <option value="">選択してください</option>
+    </select>
+</div>
+
+<!-- 進行状況 -->
+<div class="status-box">
+    <div>着付け: 仕上がり <span id="kimonoDone">0</span> / 全体 <span id="kimonoTotal">0</span></div>
+    <div>メイク: 仕上がり <span id="makeDone">0</span> / 全体 <span id="makeTotal">0</span></div>
+    <div>ヘアー: 仕上がり <span id="hairDone">0</span> / 全体 <span id="hairTotal">0</span></div>
+</div>
+
+</body>
+</html>

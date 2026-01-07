@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規担当者追加</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #222;
+            color: #f0f0f0;
+        }
+        input, select, button {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h2>新規担当者追加</h2>
+
+<label>担当者名</label>
+<input type="text" id="staffName">
+
+<label>担当区分</label>
+<select id="staffType">
+    <option value="">選択してください</option>
+    <option value="kimono">着付け</option>
+    <option value="make">メイク</option>
+    <option value="hair">ヘアー</option>
+</select>
+
+<button>保存（後で実装）</button>
+
+<button onclick="location.href='index.html'">戻る</button>
+
+</body>
+</html>

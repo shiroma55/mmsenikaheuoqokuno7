@@ -385,12 +385,19 @@ document.getElementById("customerSelect").addEventListener("change", function ()
     if (!person) return;
 
     // 番号・名前・備考・入店時間などを反映
-    document.getElementById("numberInput").value = person["番号"] || "";
-    document.getElementById("nameDisplay").value = person["名前"] || "";
-    document.getElementById("noteInput").value = person["備考"] || "";
-    document.getElementById("timeInput").value = person["入店時間"] || "";
+   // 名前
+document.getElementById("customerName").value = person["名前"] || "";
 
-    alert(person["名前"] + " さんのデータを読み込みました");
+// ふりがな
+document.getElementById("customerKana").value = person["ふりがな"] || "";
+
+// 中学
+document.getElementById("customerSchool").value = person["中学"] || "";
+
+// 備考
+document.getElementById("customerNote").value = person["備考"] || "";
+
+alert(person["名前"] + " さんのデータを読み込みました");
 });
 </script>
 

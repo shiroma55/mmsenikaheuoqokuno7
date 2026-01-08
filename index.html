@@ -146,12 +146,69 @@
 </table>
 </div>
 
-<div class="row">
-    <span class="label">メイク:</span>
-    <select id="makeSelect">
-        <option value="">選択してください</option>
-    </select>
-</div>
+<table style="border-collapse: collapse; margin-top: 20px; width: 100%; table-layout: fixed;">
+
+    <colgroup>
+        <col style="width: 20%;">   <!-- メイク -->
+        <col style="width: 15%;">   <!-- 担当者① -->
+        <col style="width: 15%;">   <!-- 担当者② -->
+        <col style="width: 10%;">   <!-- お直し / あり -->
+        <col style="width: 10%;">   <!-- なし -->
+        <col style="width: 30%;">   <!-- お直し担当者 -->
+    </colgroup>
+
+    <!-- 1行目：お直し -->
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="text-align:center; white-space: nowrap;">お直し</td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <!-- 2行目：あり・なし -->
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="text-align:center;">あり</td>
+        <td style="text-align:center;">なし</td>
+        <td></td>
+    </tr>
+
+    <!-- 3行目：メイク -->
+    <tr>
+        <td>メイク</td>
+
+        <td>
+            <select id="makeStaff1" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+
+        <td>
+            <select id="makeStaff2" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+
+        <td style="text-align:center;">
+            <input type="checkbox" name="makeFixYes">
+        </td>
+
+        <td style="text-align:center;">
+            <input type="checkbox" name="makeFixNo">
+        </td>
+
+        <td>
+            <select id="makeFixStaff" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+    </tr>
+
+</table>
 
 <div class="row">
     <span class="label">ヘアー:</span>

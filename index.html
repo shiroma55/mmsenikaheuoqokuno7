@@ -3,140 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026年度 成人式</title>
+    <title>成人式 管理メニュー</title>
 
     <style>
         body {
             font-family: sans-serif;
-            padding: 20px;
-            line-height: 1.6;
             background-color: #222;
             color: #f0f0f0;
+            text-align: center;
+            padding: 40px;
         }
 
-        input, select, button {
-            padding: 8px;
-            margin: 6px 0;
-            font-size: 16px;
-            width: 250px;
+        h1 {
+            margin-bottom: 40px;
+            font-size: 28px;
+        }
+
+        .menu-button {
             display: block;
+            width: 260px;
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 20px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .menu-button:hover {
+            background-color: #666;
         }
     </style>
-
-    <script src="xlsx.full.min.js"></script>
 </head>
 
 <body>
 
-    <h1>2026年度 成人式</h1>
+    <h1>2026年度 成人式 管理メニュー</h1>
 
-    <!-- お客様データ読み込み -->
-    <label>お客様データ（Excel）を読み込む</label>
-    <input id="customerFile" type="file">
-
-    <!-- 番号検索 -->
-    <label>番号で検索</label>
-    <input id="numberInput" type="text" placeholder="番号を入力">
-
-    <!-- 名前検索 -->
-    <label>名前で検索（ひらがな・漢字）</label>
-    <input id="nameInput" type="text" placeholder="名前を入力">
-
-    <!-- 名前検索の候補リスト -->
-    <select id="customerSelect">
-        <option value="">検索してください</option>
-    </select>
-
-    <!-- 名前検索エリア -->
-    <div id="customerSearchArea" style="display:none;"></div>
-
-    <!-- データ表示欄 -->
-    <label>名前</label>
-    <input id="nameDisplay" type="text" readonly>
-
-    <label>備考</label>
-    <input id="noteInput" type="text">
-
-    <label>入店時間</label>
-    <input id="timeInput" type="text">
-
-    <script>
-        let customerData = [];
-
-        // お客様データ読み込み
-        document.getElementById("customerFile").addEventListener("change", function (e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                const data = new Uint8Array(event.target.result);
-                const workbook = XLSX.read(data, { type: "array" });
-
-                const sheetName = workbook.SheetNames[0];
-                const sheet = workbook.Sheets[sheetName];
-
-                customerData = XLSX.utils.sheet_to_json(sheet);
-
-                document.getElementById("customerSearchArea").style.display = "block";
-
-                alert("お客様データを読み込みました");
-            };
-
-            reader.readAsArrayBuffer(file);
-        });
-
-        // 名前検索
-        document.getElementById("nameInput").addEventListener("input", function () {
-            const keyword = this.value.trim();
-            const select = document.getElementById("customerSelect");
-
-            select.innerHTML = '<option value="">検索してください</option>';
-
-            if (keyword === "") return;
-
-            const results = customerData.filter(item => {
-                const name = item["名前"] || "";
-                const kana = item["ふりがな"] || "";
-                return name.startsWith(keyword) || kana.startsWith(keyword);
-            });
-
-            results.forEach(item => {
-                const option = document.createElement("option");
-                option.value = item["番号"];
-                option.textContent = item["名前"];
-                select.appendChild(option);
-            });
-        });
-
-        // 候補を選んだらデータを反映
-        document.getElementById("customerSelect").addEventListener("change", function () {
-            const number = this.value;
-            if (!number) return;
-
-            const person = customerData.find(item => item["番号"] == number);
-            if (!person) return;
-
-            document.getElementById("numberInput").value = person["番号"] || "";
-            document.getElementById("nameDisplay").value = person["名前"] || "";
-            document.getElementById("noteInput").value = person["備考"] || "";
-            document.getElementById("timeInput").value = person["入店時間"] || "";
-
-            alert(person["名前"] + " さんのデータを読み込みました");
-        });
-
-        // 番号検索
-        document.getElementById("numberInput").addEventListener("input", function () {
-            const number = this.value.trim();
-            if (number === "") return;
-
-            const person = customerData.find(item => item["番号"] == number);
-            if (!person) return;
-
-            document.getElementById("nameDisplay").value = person["名前"] || "";
-            document.getElementById("noteInput").value = person["備考"] || "";
-            document.getElementById("timeInput").value = person["入店時間"] || "";
-        });
-    </script>
+    <a class="menu-button" href="新しい人物.html">👤 新しい人物を登録</a>
+    <a class="menu-button" href="新しいスタッフ.html">🧑‍💼 新しいスタッフを登録</a>
+    <a class="menu-button" href="検索.html">🔍 お客様検索</a>
 
 </body>
+</html>

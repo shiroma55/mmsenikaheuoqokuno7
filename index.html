@@ -304,6 +304,102 @@
             reader.readAsText(file, "UTF-8");
         });
     </script>
+            // ===== 担当者が選ばれたら仕上がり人数を更新 =====
+
+        // 担当者プルダウンのID一覧
+        const workSelects = [
+            "kimonoMain", "kimonoSub",
+            "makeMain", "makeSub",
+            "hairMain", "hairSub"
+        ];
+
+        // すべての担当者プルダウンにイベントを付ける
+        workSelects.forEach(id => {
+            document.getElementById(id).addEventListener("change", updateFinishCount);
+        });
+
+        function updateFinishCount() {
+            // 仕上がり人数カウント用
+            let kimonoDone = 0;
+            let makeDone = 0;
+            let hairDone = 0;
+
+            persons.forEach(p => {
+                // 着付け（基本全員対象）
+                if (p.kimono === "有" || p.kimono === "" || p.kimono === undefined) {
+                    // 担当者が入っていたら仕上がり扱い
+                    if (p.kimonoMain || p.kimonoSub) {
+                        kimonoDone++;
+                    }
+                }
+
+                // メイク（希望者のみ）
+                if (p.make === "有") {
+                    if (p.makeMain || p.makeSub) {
+                        makeDone++;
+                    }
+                }
+
+                // ヘアー（希望者のみ）
+                if (p.hair === "有") {
+                    if (p.hairMain || p.hairSub) {
+                        hairDone++;
+                    }
+                }
+            });
+
+            // 画面に反映
+            document.getElementById("kimonoStatus").textContent =
+                `着付け：${kimonoDone} / ${totals.kimonoTotal}`;
+
+            document.getElementById("makeStatus").textContent =
+                `メイク：${makeDone} / ${totals.makeTotal}`;
+
+            document.getElementById("hairStatus").textContent =
+                `ヘアー：${hairDone} / ${totals.hairTotal}`;
+        }
+
+        // ===== 担当者選択時に該当者へ保存 =====
+        function bindPersonToWork(person) {
+            // 着付け
+            person.kimonoMain = document.getElementById("kimonoMain").value;
+            person.kimonoSub  = document.getElementById("kimonoSub").value;
+
+            // メイク
+            person.makeMain = document.getElementById("makeMain").value;
+            person.makeSub  = document.getElementById("makeSub").value;
+
+            // ヘアー
+            person.hairMain = document.getElementById("hairMain").value;
+            person.hairSub  = document.getElementById("hairSub").value;
+
+            updateFinishCount();
+        }
+
+        // 番号検索や名前検索で人が決まったら呼ぶ
+        function updateWorkBlocks(person) {
+            // 既存の処理（ブロックの薄さ変更）
+            const makeBlock = document.querySelectorAll(".sub-block")[1];
+            makeBlock.style.opacity = (person.make === "有") ? 1 : 0.3;
+
+            const hairBlock = document.querySelectorAll(".sub-block")[2];
+            hairBlock.style.opacity = (person.hair === "有") ? 1 : 0.3;
+
+            // 担当者プルダウンの選択状態を反映
+            document.getElementById("kimonoMain").value = person.kimonoMain || "";
+            document.getElementById("kimonoSub").value  = person.kimonoSub  || "";
+
+            document.getElementById("makeMain").value = person.makeMain || "";
+            document.getElementById("makeSub").value  = person.makeSub  || "";
+
+            document.getElementById("hairMain").value = person.hairMain || "";
+            document.getElementById("hairSub").value  = person.hairSub  || "";
+
+            // 担当者変更時に person に保存
+            workSelects.forEach(id => {
+                document.getElementById(id).onchange = () => bindPersonToWork(person);
+            });
+        }
             // ===== 番号検索 =====
         document.getElementById("numberSearch").addEventListener("input", function () {
             const num = this.value.trim();

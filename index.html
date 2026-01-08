@@ -203,12 +203,14 @@
 
         json.forEach(row => {
             const person = {
-                number: row["番号"] || "",
-                name: row["名前"] || "",
-                kimono: row["着付け"] || "",
-                make: row["メイク"] || "",
-                hair: row["ヘアー"] || "",
-                memo: row["備考"] || ""
+               number: row["番号"]
+      || row["No"]
+      || row["NO"]
+      || row["no"]
+      || row["ID"]
+      || row["整理番号"]
+      || row[Object.keys(row)[0]]  // 1列目を番号として扱う
+      || "",
             };
 
             if (!person.name && !person.number) return;

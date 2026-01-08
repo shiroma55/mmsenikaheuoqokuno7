@@ -313,6 +313,75 @@ document.getElementById("nameInput").addEventListener("input", function () {
     </tr>
 
 </table>
+    <!-- ▼ ヘアーブロック -->
+<table style="border-collapse: collapse; margin-top: 20px; width: 100%; table-layout: fixed;">
+
+    <colgroup>
+        <col style="width: 20%;">
+        <col style="width: 15%;">
+        <col style="width: 15%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 30%;">
+    </colgroup>
+
+    <!-- 1行目：お直し -->
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="text-align:center; white-space: nowrap;">お直し</td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <!-- 2行目：あり・なし -->
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="text-align:center;">あり</td>
+        <td style="text-align:center;">なし</td>
+        <td></td>
+    </tr>
+
+    <!-- 3行目：入力欄 -->
+    <tr>
+        <td style="font-weight: bold;">ヘアー</td>
+
+        <!-- 担当者① -->
+        <td>
+            <select id="hairStaff1" style="width: 100%;">
+                <option value="">選択</option>
+            </select>
+        </td>
+
+        <!-- 担当者② -->
+        <td>
+            <select id="hairStaff2" style="width: 100%;">
+                <option value="">選択</option>
+            </select>
+        </td>
+
+        <!-- お直し：あり -->
+        <td style="text-align:center;">
+            <input type="radio" name="hairFix" value="あり" id="hairFixYes">
+        </td>
+
+        <!-- お直し：なし -->
+        <td style="text-align:center;">
+            <input type="radio" name="hairFix" value="なし" id="hairFixNo">
+        </td>
+
+        <!-- お直し担当者 -->
+        <td>
+            <select id="hairFixStaff" style="width: 100%;">
+                <option value="">選択</option>
+            </select>
+        </td>
+    </tr>
+
+</table>
 <!-- ▼ 進行状況 -->
 <div class="status-box" style="margin-top: 30px;">
     <div>着付け: 仕上がり <span id="kimonoDone">0</span> / 全体 <span id="kimonoTotal">0</span></div>

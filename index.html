@@ -89,35 +89,38 @@
     </div>
 
     <!-- 2行目：あり・なし（チェックボックスの真上に配置） -->
-    <div class="row" style="margin-left: 200px;">
-        <span class="label" style="display: inline-block; width: 40px; text-align: center;">あり</span>
-        <span class="label" style="display: inline-block; width: 40px; text-align: center; margin-left: 40px;">なし</span>
+    <div class="row">
+        <!-- 着付けの文字と担当者枠の幅に合わせるための空白 -->
+        <span style="display:inline-block; width:180px;"></span>
+
+        <span style="display:inline-block; width:60px; text-align:center;">あり</span>
+        <span style="display:inline-block; width:60px; text-align:center;">なし</span>
     </div>
 
     <!-- 3行目：着付け＋担当者枠＋チェックボックス＋お直し担当者 -->
     <div class="row">
 
         <!-- 着付け -->
-        <span class="label">着付け</span>
+        <span class="label" style="display:inline-block; width:60px;">着付け</span>
 
         <!-- 担当者① -->
-        <select id="kimonoStaff1" style="margin-left: 10px;">
+        <select id="kimonoStaff1" style="margin-left:10px; width:100px;">
             <option value="">選択してください</option>
         </select>
 
         <!-- 担当者② -->
-        <select id="kimonoStaff2" style="margin-left: 10px;">
+        <select id="kimonoStaff2" style="margin-left:10px; width:100px;">
             <option value="">選択してください</option>
         </select>
 
         <!-- チェックボックス（あり） -->
-        <input type="checkbox" name="kimonoFixYes" style="margin-left: 60px;">
+        <input type="checkbox" name="kimonoFixYes" style="margin-left:20px;">
 
         <!-- チェックボックス（なし） -->
-        <input type="checkbox" name="kimonoFixNo" style="margin-left: 60px;">
+        <input type="checkbox" name="kimonoFixNo" style="margin-left:60px;">
 
         <!-- お直し担当者枠 -->
-        <select id="kimonoFixStaff" style="margin-left: 20px;">
+        <select id="kimonoFixStaff" style="margin-left:20px; width:120px;">
             <option value="">選択してください</option>
         </select>
 

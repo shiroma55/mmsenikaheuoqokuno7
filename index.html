@@ -229,3 +229,38 @@
     </tr>
 
 </table>
+<!-- 3行目：着付け＋担当者枠＋ラジオボタン＋お直し担当者 -->
+<tr>
+    <td style="font-weight: bold;">着付け</td>
+
+    <!-- 担当者① -->
+    <td>
+        <select id="kimonoStaff1" style="width: 90%;">
+            <option value="">選択してください</option>
+        </select>
+    </td>
+
+    <!-- 担当者② -->
+    <td>
+        <select id="kimonoStaff2" style="width: 90%;">
+            <option value="">選択してください</option>
+        </select>
+    </td>
+
+    <!-- お直し：あり -->
+    <td style="text-align:center;">
+        <input type="radio" name="kimonoFix" id="kimonoFixYes" value="あり">
+    </td>
+
+    <!-- お直し：なし -->
+    <td style="text-align:center;">
+        <input type="radio" name="kimonoFix" id="kimonoFixNo" value="なし">
+    </td>
+
+    <!-- お直し担当者 -->
+    <td>
+        <select id="kimonoFixStaff" style="width: 90%;">
+            <option value="">選択してください</option>
+        </select>
+    </td>
+</tr>

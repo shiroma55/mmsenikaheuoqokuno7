@@ -189,12 +189,48 @@
     </tr>
 
 </table>
-<div class="row">
-    <span class="label">ヘアー:</span>
-    <select id="hairSelect">
-        <option value="">選択してください</option>
-    </select>
-</div>
+<table style="border-collapse: collapse; margin-top: 20px; width: 100%; table-layout: fixed;">
+
+    <colgroup>
+        <col style="width: 20%;">   <!-- ヘアー -->
+        <col style="width: 15%;">   <!-- 担当者① -->
+        <col style="width: 15%;">   <!-- 担当者② -->
+        <col style="width: 10%;">   <!-- あり -->
+        <col style="width: 10%;">   <!-- なし -->
+        <col style="width: 30%;">   <!-- お直し担当者 -->
+    </colgroup>
+
+    <tr>
+        <td>ヘアー</td>
+
+        <td>
+            <select id="hairStaff1" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+
+        <td>
+            <select id="hairStaff2" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+
+        <td style="text-align:center;">
+            <input type="checkbox" name="hairFixYes">
+        </td>
+
+        <td style="text-align:center;">
+            <input type="checkbox" name="hairFixNo">
+        </td>
+
+        <td>
+            <select id="hairFixStaff" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+    </tr>
+
+</table>
 
 <!-- 進行状況 -->
 <div class="status-box">

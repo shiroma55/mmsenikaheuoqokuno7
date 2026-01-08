@@ -153,6 +153,17 @@ document.getElementById("nameInput").addEventListener("input", function () {
         list.appendChild(option);
     });
 });
+    // ▼ 名前を選択したら自動で反映
+document.getElementById("nameInput").addEventListener("change", function () {
+    const name = this.value.trim();
+    if (!name) return;
+
+    const person = customerData.find(p => p["名前"] === name);
+
+    if (person) {
+        displayCustomerInfo(person);
+    }
+});
 </script>
 <!-- ▼ 入店情報 -->
 <div class="row" style="margin-top: 20px;">

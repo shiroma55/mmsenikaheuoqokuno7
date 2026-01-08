@@ -1,18 +1,20 @@
-<!DOCTYPE html>
+-<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026年度成人式</title>
-
+    <title>2026年度 成人式</title>
     <style>
-        body {
-            font-family: sans-serif;
-            padding: 20px;
-            line-height: 1.6;
-            background-color: #222;
-            color: #f0f0f0;
-        }
+   body {
+    font-family: sans-serif;
+    padding: 20px;
+    line-height: 1.6;
+    background-color: #222;   /* ダーク背景 */
+    color: #f0f0f0;           /* 文字を明るく */
+}
+    background-color: #222;   /* ダーク背景 */
+    color: #f0f0f0;           /* 文字を明るく */
+} 
         h1 {
             text-align: center;
             margin-bottom: 20px;
@@ -29,9 +31,6 @@
             font-weight: bold;
             margin-right: 10px;
         }
-        .section {
-            margin-top: 20px;
-        }
         .status-box {
             margin-top: 20px;
             padding: 10px;
@@ -39,71 +38,94 @@
         }
     </style>
 </head>
-
 <body>
 
-<h1>2026年度成人式</h1>
+<h1>2026年度 成人式</h1>
+<div id="fileSelectArea" class="section" style="margin-top: 20px;">
 
-<!-- ▼ Excel ファイル選択 -->
-<div id="fileSelectArea" class="section">
     <div class="row">
         <span class="label">お客様データファイル：</span>
         <input type="file" id="customerFile" accept=".xlsx">
     </div>
 
-    <div class="row">
+    <div class="row" style="margin-top: 10px;">
         <span class="label">スタッフデータファイル：</span>
         <input type="file" id="staffFile" accept=".xlsx">
     </div>
-</div>
 
-<!-- ▼ 名前検索の候補プルダウン（ここが本物） -->
-<div id="customerSearchArea" class="section" style="display:none;">
+</div>
+<div id="customerSelectArea" class="section" style="margin-top: 20px; display: none;">
+
     <div class="row">
-        <span class="label">候補：</span>
-        <select id="customerSelect" style="width:250px;">
-            <option value="">検索してください</option>
+        <span class="label">お客様データ：</span>
+
+        <select id="customerSelect" style="width: 250px;">
+            <option value="">選択してください</option>
         </select>
     </div>
-</div>
 
-<!-- ▼ 名前入力 -->
-<div class="row">
-    <span class="label">名前入力</span>
-    <input type="text" id="nameInput">
 </div>
-
-<!-- ▼ 選択後に表示される入力欄 -->
-<div id="customerInputArea" class="section" style="display:none;">
+<!-- ▼ 新規入力フォーム（普段は非表示） -->
+<div id="customerInputArea" class="section" style="margin-top: 20px; display: none;">
 
     <div class="row">
         <span class="label">番号：</span>
-        <input type="text" id="customerNumber" style="width:200px;">
+        <input type="text" id="customerNumber" style="width: 200px;">
     </div>
 
     <div class="row">
         <span class="label">名前：</span>
-        <input type="text" id="customerName" style="width:200px;">
+        <input type="text" id="customerName" style="width: 200px;">
     </div>
 
     <div class="row">
         <span class="label">ふりがな：</span>
-        <input type="text" id="customerKana" style="width:200px;">
+        <input type="text" id="customerKana" style="width: 200px;">
     </div>
 
     <div class="row">
         <span class="label">中学：</span>
-        <input type="text" id="customerSchool" style="width:200px;">
+        <input type="text" id="customerSchool" style="width: 200px;">
     </div>
 
     <div class="row">
         <span class="label">備考：</span>
-        <input type="text" id="customerNote" style="width:300px;">
+        <input type="text" id="customerNote" style="width: 300px;">
+    </div>
+
+    <button id="saveCustomer" style="margin-top: 10px;">保存</button>
+
+</div>
+<!-- 名前・番号検索 -->
+<div class="row">
+    <span class="label">名前入力</span>
+    <input type="text" id="nameInput">
+    <button>検索</button>
+</div>
+
+<!-- ▼ 名前検索の候補プルダウン（ここに追加！） -->
+<div id="customerSearchArea" class="section" style="margin-top: 10px; display: none;">
+
+    <div class="row">
+        <span class="label">候補：</span>
+        <select id="customerSelect" style="width: 250px;">
+            <option value="">検索してください</option>
+        </select>
     </div>
 
 </div>
 
-<!-- ▼ 表示欄 -->
+<div class="row">
+    <button onclick="location.href='new_person.html'">新規成人者追加</button>
+    <button onclick="location.href='new_staff.html'">新規担当者追加</button>
+</div> 
+<div class="row">
+    <span class="label">番号入力</span>
+    <input type="text" id="numberInput">
+    <button>検索</button>
+</div>
+
+<!-- 入店情報 -->
 <div class="row">
     <span class="label">入店時間:</span>
     <span id="entryTime">--:--</span>
@@ -124,96 +146,196 @@
     <span id="displayNote">---</span>
 </div>
 
-<!-- ▼ XLSX 読み込みライブラリ -->
-<script src="xlsx.full.min.js"></script>
+<!-- 着付けブロック -->
+<table style="border-collapse: collapse; margin-top: 10px; width: 100%; table-layout: fixed;">
 
-<script>
-// ------------------------------
-// Excel 読み込み用
-// ------------------------------
-let customerData = [];
+    <colgroup>
+        <col style="width: 20%;">   <!-- 着付け / 空白 -->
+        <col style="width: 15%;">   <!-- 担当者① -->
+        <col style="width: 15%;">   <!-- 担当者② -->
+        <col style="width: 10%;">   <!-- お直し / あり -->
+        <col style="width: 10%;">   <!-- なし -->
+        <col style="width: 30%;">   <!-- お直し担当者 -->
+    </colgroup>
 
-// ------------------------------
-// お客様データファイル読み込み
-// ------------------------------
-document.getElementById("customerFile").addEventListener("change", function (e) {
-    const file = e.target.files[0];
-    if (!file) return;
+    <!-- 1行目：お直し -->
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="text-align:center; white-space: nowrap;">お直し</td>
+        <td></td>
+        <td></td>
+    </tr>
 
-    const reader = new FileReader();
+    <!-- 2行目：あり・なし -->
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="text-align:center;">あり</td>
+        <td style="text-align:center;">なし</td>
+        <td></td>
+    </tr>
 
-    reader.onload = function (event) {
-        const data = new Uint8Array(event.target.result);
-        const workbook = XLSX.read(data, { type: "array" });
+    <!-- 3行目：着付け -->
+    <tr>
+        <td>着付け</td>
 
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
+        <td>
+            <select id="kimonoStaff1" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
 
-        customerData = XLSX.utils.sheet_to_json(sheet);
+        <td>
+            <select id="kimonoStaff2" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
 
-        document.getElementById("customerSearchArea").style.display = "block";
+        <td style="text-align:center;">
+            <input type="checkbox" name="kimonoFixYes">
+        </td>
 
-        alert("お客様データを読み込みました");
-    };
+        <td style="text-align:center;">
+            <input type="checkbox" name="kimonoFixNo">
+        </td>
 
-    reader.readAsArrayBuffer(file);
-});
+        <td>
+            <select id="kimonoFixStaff" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+    </tr>
 
-// ------------------------------
-// 名前検索（先頭一致）
-// ------------------------------
-document.getElementById("nameInput").addEventListener("input", function () {
-    const keyword = this.value.trim();
-    const select = document.getElementById("customerSelect");
+</table>
+<table style="border-collapse: collapse; margin-top: 20px; width: 100%; table-layout: fixed;">
 
-    select.innerHTML = '<option value="">検索してください</option>';
+    <colgroup>
+        <col style="width: 20%;">   <!-- メイク -->
+        <col style="width: 15%;">   <!-- 担当者① -->
+        <col style="width: 15%;">   <!-- 担当者② -->
+        <col style="width: 10%;">   <!-- あり -->
+        <col style="width: 10%;">   <!-- なし -->
+        <col style="width: 30%;">   <!-- お直し担当者 -->
+    </colgroup>
 
-    if (keyword === "") return;
+    <!-- ★ メイクは1行だけでOK -->
+    <tr>
+        <td>メイク</td>
 
-    const results = customerData.filter(item => {
-        const name = item["名前"] || "";
-        const kana = item["ふりがな"] || "";
-        return name.startsWith(keyword) || kana.startsWith(keyword);
-    });
+        <td>
+            <select id="makeStaff1" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
 
-    results.forEach(item => {
-        const option = document.createElement("option");
-        option.value = item["番号"];
-        option.textContent = item["名前"];
-        select.appendChild(option);
-    });
-});
+        <td>
+            <select id="makeStaff2" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
 
-// ------------------------------
-// プルダウン選択 → 入力欄へ反映
-// ------------------------------
-document.getElementById("customerSelect").addEventListener("change", function () {
-    const number = this.value;
-    if (!number) return;
+        <td style="text-align:center;">
+            <input type="checkbox" name="makeFixYes">
+        </td>
 
-    const person = customerData.find(item => item["番号"] == number);
-    if (!person) return;
+        <td style="text-align:center;">
+            <input type="checkbox" name="makeFixNo">
+        </td>
 
-    document.getElementById("customerInputArea").style.display = "block";
+        <td>
+            <select id="makeFixStaff" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+    </tr>
 
-    document.getElementById("customerNumber").value = person["番号"] || "";
-    document.getElementById("customerName").value = person["名前"] || "";
-    document.getElementById("customerKana").value = person["ふりがな"] || "";
-    document.getElementById("customerSchool").value = person["中学"] || "";
-    document.getElementById("customerNote").value = person["備考"] || "";
+</table>
+<table style="border-collapse: collapse; margin-top: 20px; width: 100%; table-layout: fixed;">
 
-    document.getElementById("displayNumber").textContent = person["番号"] || "---";
-    document.getElementById("displayName").textContent = person["名前"] || "---";
-    document.getElementById("displayNote").textContent = person["備考"] || "---";
+    <colgroup>
+        <col style="width: 20%;">   <!-- ヘアー -->
+        <col style="width: 15%;">   <!-- 担当者① -->
+        <col style="width: 15%;">   <!-- 担当者② -->
+        <col style="width: 10%;">   <!-- あり -->
+        <col style="width: 10%;">   <!-- なし -->
+        <col style="width: 30%;">   <!-- お直し担当者 -->
+    </colgroup>
 
-    const now = new Date();
-    const time = now.getHours().toString().padStart(2, "0") + ":" +
-                 now.getMinutes().toString().padStart(2, "0");
-    document.getElementById("entryTime").textContent = time;
+    <tr>
+        <td>ヘアー</td>
 
-    alert(person["名前"] + " さんのデータを読み込みました");
-});
-</script>
+        <td>
+            <select id="hairStaff1" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
 
-</body>
-</html>
+        <td>
+            <select id="hairStaff2" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+
+        <td style="text-align:center;">
+            <input type="checkbox" name="hairFixYes">
+        </td>
+
+        <td style="text-align:center;">
+            <input type="checkbox" name="hairFixNo">
+        </td>
+
+        <td>
+            <select id="hairFixStaff" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+    </tr>
+
+</table>
+<table style="border-collapse: collapse; margin-top: 20px; width: 100%; table-layout: fixed;">
+
+    <colgroup>
+        <col style="width: 20%;">   <!-- ヘアー -->
+        <col style="width: 15%;">   <!-- 担当者① -->
+        <col style="width: 15%;">   <!-- 担当者② -->
+        <col style="width: 10%;">   <!-- あり -->
+        <col style="width: 10%;">   <!-- なし -->
+        <col style="width: 30%;">   <!-- お直し担当者 -->
+    </colgroup>
+
+    <tr>
+        <td>ヘアー</td>
+
+        <td>
+            <select id="hairStaff1" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+
+        <td>
+            <select id="hairStaff2" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+
+        <td style="text-align:center;">
+            <input type="checkbox" name="hairFixYes">
+        </td>
+
+        <td style="text-align:center;">
+            <input type="checkbox" name="hairFixNo">
+        </td>
+
+        <td>
+            <select id="hairFixStaff" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+    </tr>
+
+</table>
+
+

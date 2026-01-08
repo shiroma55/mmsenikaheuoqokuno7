@@ -510,7 +510,7 @@ document.getElementById("numberSearchBtn").addEventListener("click", function ()
         return;
     }
 
-    const person = customerData.find(p => String(p["番号"]) === number);
+    const person = customerData.find(p => String(p["番号"]).trim() === number);
 
     if (!person) {
         alert("該当する番号がありません");

@@ -87,31 +87,45 @@
     <label><input type="radio" name="fix" value="なし"> なし</label>
 </div>
 
-<!-- 担当者選択 -->
+<!-- 着付けブロック -->
 <div class="section">
-    <h3>着付け</h3>
 
-    <!-- 担当者① -->
-    <label>担当者①</label>
-    <select id="kimonoStaff1">
-        <option value="">選択してください</option>
-    </select>
+    <!-- 1行目：お直し有り無し -->
+    <div class="row">
+        <span class="label">お直し有り無し</span>
+    </div>
 
-    <!-- 担当者② -->
-    <label>担当者②</label>
-    <select id="kimonoStaff2">
-        <option value="">選択してください</option>
-    </select>
+    <!-- 2行目：着付け＋担当者枠＋チェック＋お直し担当者 -->
+    <div class="row">
 
-    <!-- お直し（○×） -->
-    <label>お直し</label>
-    <span id="kimonoFixStatus">●</span>
+        <!-- 着付けの文字 -->
+        <span class="label">着付け</span>
 
-    <!-- お直し担当者 -->
-    <label>お直し担当者</label>
-    <select id="kimonoFixStaff">
-        <option value="">選択してください</option>
-    </select>
+        <!-- 担当者① -->
+        <select id="kimonoStaff1" style="margin-left: 10px;">
+            <option value="">選択してください</option>
+        </select>
+
+        <!-- 担当者② -->
+        <select id="kimonoStaff2" style="margin-left: 10px;">
+            <option value="">選択してください</option>
+        </select>
+
+        <!-- ●× チェックボタン -->
+        <label style="margin-left: 20px;">
+            <input type="radio" name="kimonoFix" value="yes"> ●
+        </label>
+        <label style="margin-left: 10px;">
+            <input type="radio" name="kimonoFix" value="no"> ×
+        </label>
+
+        <!-- お直し担当者枠 -->
+        <select id="kimonoFixStaff" style="margin-left: 20px;">
+            <option value="">選択してください</option>
+        </select>
+
+    </div>
+
 </div>
 
 <div class="row">

@@ -84,20 +84,20 @@
 <table style="border-collapse: collapse; margin-top: 10px; width: 100%; table-layout: fixed;">
 
     <colgroup>
-        <col style="width: 20%;">   <!-- お直し / 着付け -->
+        <col style="width: 20%;">   <!-- 着付け / 空白 -->
         <col style="width: 15%;">   <!-- 担当者① -->
         <col style="width: 15%;">   <!-- 担当者② -->
-        <col style="width: 10%;">   <!-- あり -->
+        <col style="width: 10%;">   <!-- お直し / あり -->
         <col style="width: 10%;">   <!-- なし -->
         <col style="width: 30%;">   <!-- お直し担当者 -->
     </colgroup>
 
-    <!-- 1行目：お直し -->
+    <!-- 1行目：お直し（★ 4列目に置く） -->
     <tr>
-        <td>お直し</td>
         <td></td>
         <td></td>
         <td></td>
+        <td style="text-align:center;">お直し</td>
         <td></td>
         <td></td>
     </tr>
@@ -107,8 +107,8 @@
         <td></td>
         <td></td>
         <td></td>
-        <td style="text-align: center;">あり</td>
-        <td style="text-align: center;">なし</td>
+        <td style="text-align:center;">あり</td>
+        <td style="text-align:center;">なし</td>
         <td></td>
     </tr>
 
@@ -128,11 +128,11 @@
             </select>
         </td>
 
-        <td style="text-align: center;">
+        <td style="text-align:center;">
             <input type="checkbox" name="kimonoFixYes">
         </td>
 
-        <td style="text-align: center;">
+        <td style="text-align:center;">
             <input type="checkbox" name="kimonoFixNo">
         </td>
 

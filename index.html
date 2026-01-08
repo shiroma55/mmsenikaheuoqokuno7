@@ -429,6 +429,9 @@ document.getElementById("customerFile").addEventListener("change", function (e) 
         // JSON に変換
         customerData = XLSX.utils.sheet_to_json(sheet);
 
+        // ★ ここに追加！
+        console.log(customerData);
+
         // 名前検索エリアを表示
         document.getElementById("customerSearchArea").style.display = "block";
 

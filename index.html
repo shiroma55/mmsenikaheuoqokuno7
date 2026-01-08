@@ -548,3 +548,75 @@ document.getElementById("staffFile").addEventListener("change", function () {
     // 読み込み完了後に setStaffList() が呼ばれるように
     setTimeout(setStaffList, 300);
 });
+// ----------------------------------------------------
+// お直し（あり／なし）の排他処理
+// ----------------------------------------------------
+function setupFixRadio(groupName) {
+    const yes = document.getElementById(groupName + "Yes");
+    const no  = document.getElementById(groupName + "No");
+
+    yes.addEventListener("change", () => {
+        if (yes.checked) no.checked = false;
+    });
+
+    no.addEventListener("change", () => {
+        if (no.checked) yes.checked = false;
+    });
+}
+
+// 着付け・メイク・ヘアーに適用
+setupFixRadio("kimonoFix");
+setupFixRadio("makeFix");
+setupFixRadio("hairFix");
+
+
+// ----------------------------------------------------
+// 進行状況の更新
+// ----------------------------------------------------
+function updateProgress() {
+
+    // 全体数
+    document.getElementById("kimonoTotal").textContent = customerData.length;
+    document.getElementById("makeTotal").textContent   = customerData.length;
+    document.getElementById("hairTotal").textContent   = customerData.length;
+
+    // 仕上がり数（お直し「なし」 or 「あり」どちらでもOK）
+    const kimonoDone = customerData.filter(p => p["着付け完了"]).length;
+    const makeDone   = customerData.filter(p => p["メイク完了"]).length;
+    const hairDone   = customerData.filter(p => p["ヘアー完了"]).length;
+
+    document.getElementById("kimonoDone").textContent = kimonoDone;
+    document.getElementById("makeDone").textContent   = makeDone;
+    document.getElementById("hairDone").textContent   = hairDone;
+}
+
+
+// ----------------------------------------------------
+// 保存ボタン（新規入力フォーム）
+// ----------------------------------------------------
+document.getElementById("saveCustomer").addEventListener("click", function () {
+
+    const number = document.getElementById("customerNumber").value.trim();
+    const name   = document.getElementById("customerName").value.trim();
+    const kana   = document.getElementById("customerKana").value.trim();
+    const school = document.getElementById("customerSchool").value.trim();
+    const note   = document.getElementById("customerNote").value.trim();
+
+    if (!number || !name) {
+        alert("番号と名前は必須です");
+        return;
+    }
+
+    customerData.push({
+        "番号": number,
+        "名前": name,
+        "ふりがな": kana,
+        "中学": school,
+        "備考": note
+    });
+
+    alert("新規お客様を追加しました");
+
+    updateProgress();
+});
+</script>

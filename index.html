@@ -83,14 +83,24 @@
 <!-- 着付けブロック -->
 <table style="border-collapse: collapse; margin-top: 10px;">
 
+    <!-- 列幅を統一 -->
+    <colgroup>
+        <col style="width: 120px;">
+        <col style="width: 120px;">
+        <col style="width: 120px;">
+        <col style="width: 60px;">
+        <col style="width: 60px;">
+        <col style="width: 150px;">
+    </colgroup>
+
     <!-- 1行目：お直し -->
     <tr>
-        <td style="width: 260px;">お直し</td>
-        <td style="width: 100px;"></td>
-        <td style="width: 100px;"></td>
-        <td style="width: 60px;"></td>
-        <td style="width: 60px;"></td>
-        <td style="width: 150px;"></td>
+        <td>お直し</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
 
     <!-- 2行目：あり・なし -->
@@ -107,31 +117,26 @@
     <tr>
         <td>着付け</td>
 
-        <!-- 担当者① -->
         <td>
             <select id="kimonoStaff1" style="width: 100px;">
                 <option value="">選択してください</option>
             </select>
         </td>
 
-        <!-- 担当者② -->
         <td>
             <select id="kimonoStaff2" style="width: 100px;">
                 <option value="">選択してください</option>
             </select>
         </td>
 
-        <!-- チェックボックス（あり） -->
         <td style="text-align: center;">
             <input type="checkbox" name="kimonoFixYes">
         </td>
 
-        <!-- チェックボックス（なし） -->
         <td style="text-align: center;">
             <input type="checkbox" name="kimonoFixNo">
         </td>
 
-        <!-- お直し担当者 -->
         <td>
             <select id="kimonoFixStaff" style="width: 120px;">
                 <option value="">選択してください</option>

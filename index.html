@@ -27,19 +27,33 @@
 
 <body>
 
-    <!-- 番号入力欄 -->
-    <input id="numberInput" type="text" placeholder="番号を入力">
+ <!-- 番号入力欄 -->
+<input id="numberInput" type="text" placeholder="番号を入力">
 
-    <!-- 名前検索入力欄 -->
-    <input id="nameInput" type="text" placeholder="名前を入力">
+<!-- 名前検索入力欄 -->
+<input id="nameInput" type="text" placeholder="名前を入力">
 
-    <!-- 名前検索の候補リスト -->
-    <select id="customerSelect">
-        <option value="">検索してください</option>
-    </select>
+<!-- 名前検索の候補リスト -->
+<select id="customerSelect">
+    <option value="">検索してください</option>
+</select>
 
-    <!-- 名前検索エリア -->
-    <div id="customerSearchArea" style="display:none;"></div>
+<!-- 名前検索エリア -->
+<div id="customerSearchArea" style="display:none;"></div>
+
+<!-- ▼ ここに追加する！ ▼ -->
+
+<!-- お客様データ読み込み -->
+<input id="customerFile" type="file">
+
+<!-- 名前表示欄 -->
+<input id="nameDisplay" type="text" placeholder="名前" readonly>
+
+<!-- 備考 -->
+<input id="noteInput" type="text" placeholder="備考">
+
+<!-- 入店時間 -->
+<input id="timeInput" type="text" placeholder="入店時間">
 
     <!-- ▼ JavaScript -->
     <script>

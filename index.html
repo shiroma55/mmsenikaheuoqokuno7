@@ -81,52 +81,65 @@
 </div>
 
 <!-- 着付けブロック -->
-<div class="section">
+<table style="border-collapse: collapse; margin-top: 10px;">
 
     <!-- 1行目：お直し -->
-    <div class="row">
-        <span class="label">お直し</span>
-    </div>
+    <tr>
+        <td style="width: 120px;">お直し</td>
+        <td style="width: 100px;"></td>
+        <td style="width: 100px;"></td>
+        <td style="width: 60px;"></td>
+        <td style="width: 60px;"></td>
+        <td style="width: 150px;"></td>
+    </tr>
 
-    <!-- 2行目：あり・なし（チェックボックスの真上に配置） -->
-    <div class="row">
-        <!-- 着付けの文字と担当者枠の幅に合わせるための空白 -->
-        <span style="display:inline-block; width:180px;"></span>
-
-        <span style="display:inline-block; width:60px; text-align:center;">あり</span>
-        <span style="display:inline-block; width:60px; text-align:center;">なし</span>
-    </div>
+    <!-- 2行目：あり・なし -->
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="text-align: center;">あり</td>
+        <td style="text-align: center;">なし</td>
+        <td></td>
+    </tr>
 
     <!-- 3行目：着付け＋担当者枠＋チェックボックス＋お直し担当者 -->
-    <div class="row">
-
-        <!-- 着付け -->
-        <span class="label" style="display:inline-block; width:60px;">着付け</span>
+    <tr>
+        <td>着付け</td>
 
         <!-- 担当者① -->
-        <select id="kimonoStaff1" style="margin-left:10px; width:100px;">
-            <option value="">選択してください</option>
-        </select>
+        <td>
+            <select id="kimonoStaff1" style="width: 100px;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
 
         <!-- 担当者② -->
-        <select id="kimonoStaff2" style="margin-left:10px; width:100px;">
-            <option value="">選択してください</option>
-        </select>
+        <td>
+            <select id="kimonoStaff2" style="width: 100px;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
 
         <!-- チェックボックス（あり） -->
-        <input type="checkbox" name="kimonoFixYes" style="margin-left:20px;">
+        <td style="text-align: center;">
+            <input type="checkbox" name="kimonoFixYes">
+        </td>
 
         <!-- チェックボックス（なし） -->
-        <input type="checkbox" name="kimonoFixNo" style="margin-left:60px;">
+        <td style="text-align: center;">
+            <input type="checkbox" name="kimonoFixNo">
+        </td>
 
-        <!-- お直し担当者枠 -->
-        <select id="kimonoFixStaff" style="margin-left:20px; width:120px;">
-            <option value="">選択してください</option>
-        </select>
+        <!-- お直し担当者 -->
+        <td>
+            <select id="kimonoFixStaff" style="width: 120px;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+    </tr>
 
-    </div>
-
-</div>
+</table>
 </div>
 
 <div class="row">

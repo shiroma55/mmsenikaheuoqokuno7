@@ -173,137 +173,63 @@
             hairTotal: 0           // ヘアー希望者人数（ヘアー=有）
         };
 
-        // ===== CSV を読み込むヘルパー関数 =====
-        function parseCSV(text) {
-            const lines = text.trim().split(/\r?\n/);
-            const header = lines[0].split(",");
-            const rows = lines.slice(1).map(line => line.split(","));
-            return { header, rows };
-        }
+        // ===== CSV を読み込むヘルパー関数 =====    
 
-        // 日本語の列名からインデックスを探す
-        function findIndex(header, nameOptions) {
-            // nameOptions: ["着付け", "着付", "kimono"] みたいに複数候補を渡せる
-            for (let i = 0; i < header.length; i++) {
-                const h = header[i].trim();
-                for (const opt of nameOptions) {
-                    if (h === opt) return i;
-                }
-            }
-            return -1;
-        }
+       document.getElementById("customerFile").addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
 
-        // ===== 名前データ（成人者）読み込み =====
-        document.getElementById("customerFile").addEventListener("change", function (e) {
-            const file = e.target.files[0];
-            if (!file) return;
+    const reader = new FileReader();
 
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                const text = event.target.result;
-                const { header, rows } = parseCSV(text);
+    reader.onload = function (event) {
 
-                // 想定している列名候補
-                const idxNumber = findIndex(header, ["番号", "No", "no"]);
-                const idxName   = findIndex(header, ["名前", "氏名", "名前(漢字)"]);
-                const idxKimono = findIndex(header, ["着付け", "着付", "kimono"]);
-                const idxMake   = findIndex(header, ["メイク", "make"]);
-                const idxHair   = findIndex(header, ["ヘアー", "ヘア", "hair"]);
-                const idxMemo   = findIndex(header, ["備考", "メモ"]);
+        // Excelデータをバイナリとして読み込む
+        const data = new Uint8Array(event.target.result);
 
-                persons = [];
-                totals.kimonoTotal = 0;
-                totals.makeTotal = 0;
-                totals.hairTotal = 0;
+        // Excelを解析
+        const workbook = XLSX.read(data, { type: "array" });
 
-                rows.forEach(cols => {
-                    const person = {
-                        number: idxNumber >= 0 ? cols[idxNumber] : "",
-                        name:   idxName   >= 0 ? cols[idxName]   : "",
-                        kimono: idxKimono >= 0 ? cols[idxKimono] : "",
-                        make:   idxMake   >= 0 ? cols[idxMake]   : "",
-                        hair:   idxHair   >= 0 ? cols[idxHair]   : "",
-                        memo:   idxMemo   >= 0 ? cols[idxMemo]   : ""
-                    };
-                    // 空行はスキップ
-                    if (!person.name && !person.number) return;
+        // 最初のシートを取得
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
 
-                    persons.push(person);
+        // シートをJSONに変換
+        const json = XLSX.utils.sheet_to_json(sheet);
 
-                    // 着付けは基本 全員対象 → 分母は persons.length でもいいが、
-                    // 念のため "着付け=有" だけにしておく
-                    if (!person.kimono || person.kimono === "有") {
-                        totals.kimonoTotal++;
-                    }
-                    if (person.make === "有") {
-                        totals.makeTotal++;
-                    }
-                    if (person.hair === "有") {
-                        totals.hairTotal++;
-                    }
-                });
+        persons = [];
+        totals.kimonoTotal = 0;
+        totals.makeTotal = 0;
+        totals.hairTotal = 0;
 
-                // 分母だけ更新（仕上がり人数は後で担当者入力と連動させる）
-                document.getElementById("kimonoStatus").textContent =
-                    `着付け：0 / ${totals.kimonoTotal}`;
-                document.getElementById("makeStatus").textContent =
-                    `メイク：0 / ${totals.makeTotal}`;
-                document.getElementById("hairStatus").textContent =
-                    `ヘアー：0 / ${totals.hairTotal}`;
-
-                console.log("名前データ読み込み完了", persons, totals);
+        json.forEach(row => {
+            const person = {
+                number: row["番号"] || "",
+                name: row["名前"] || "",
+                kimono: row["着付け"] || "",
+                make: row["メイク"] || "",
+                hair: row["ヘアー"] || "",
+                memo: row["備考"] || ""
             };
 
-           reader.readAsArrayBuffer(file);
+            if (!person.name && !person.number) return;
+
+            persons.push(person);
+
+            if (!person.kimono || person.kimono === "有") totals.kimonoTotal++;
+            if (person.make === "有") totals.makeTotal++;
+            if (person.hair === "有") totals.hairTotal++;
         });
 
-        // ===== スタッフデータ読み込み =====
-        document.getElementById("staffFile").addEventListener("change", function (e) {
-            const file = e.target.files[0];
-            if (!file) return;
+        document.getElementById("kimonoStatus").textContent =
+            `着付け：0 / ${totals.kimonoTotal}`;
+        document.getElementById("makeStatus").textContent =
+            `メイク：0 / ${totals.makeTotal}`;
+        document.getElementById("hairStatus").textContent =
+            `ヘアー：0 / ${totals.hairTotal}`;
+    };
 
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                const text = event.target.result;
-                const { header, rows } = parseCSV(text);
-
-                const idxName = findIndex(header, ["名前", "氏名", "スタッフ名"]);
-                staffList = [];
-
-                rows.forEach(cols => {
-                    const name = idxName >= 0 ? cols[idxName] : cols[0];
-                    if (!name) return;
-                    staffList.push(name);
-                });
-
-                // 読み込んだスタッフを、担当者プルダウンに反映
-                const selects = [
-                    "kimonoMain", "kimonoSub", "kimonoFixStaff",
-                    "makeMain", "makeSub", "makeFixStaff",
-                    "hairMain", "hairSub", "hairFixStaff"
-                ].map(id => document.getElementById(id));
-
-                selects.forEach(sel => {
-                    // いったんクリア
-                    sel.innerHTML = "";
-                    const emptyOpt = document.createElement("option");
-                    emptyOpt.value = "";
-                    emptyOpt.textContent = "選択してください";
-                    sel.appendChild(emptyOpt);
-
-                    staffList.forEach(name => {
-                        const opt = document.createElement("option");
-                        opt.value = name;
-                        opt.textContent = name;
-                        sel.appendChild(opt);
-                    });
-                });
-
-                console.log("スタッフデータ読み込み完了", staffList);
-            };
-
-           reader.readAsArrayBuffer(file);
-        });
+    reader.readAsArrayBuffer(file);
+});
 
             // ===== 担当者が選ばれたら仕上がり人数を更新 =====
 
@@ -359,7 +285,48 @@
             document.getElementById("hairStatus").textContent =
                 `ヘアー：${hairDone} / ${totals.hairTotal}`;
         }
+        document.getElementById("staffFile").addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
 
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+
+        const data = new Uint8Array(event.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+
+        const json = XLSX.utils.sheet_to_json(sheet);
+
+        staffList = json.map(row => row["名前"] || row["氏名"] || row[Object.keys(row)[0]]);
+
+        const selects = [
+            "kimonoMain", "kimonoSub", "kimonoFixStaff",
+            "makeMain", "makeSub", "makeFixStaff",
+            "hairMain", "hairSub", "hairFixStaff"
+        ].map(id => document.getElementById(id));
+
+        selects.forEach(sel => {
+            sel.innerHTML = "";
+            const emptyOpt = document.createElement("option");
+            emptyOpt.value = "";
+            emptyOpt.textContent = "選択してください";
+            sel.appendChild(emptyOpt);
+
+            staffList.forEach(name => {
+                const opt = document.createElement("option");
+                opt.value = name;
+                opt.textContent = name;
+                sel.appendChild(opt);
+            });
+        });
+    };
+
+    reader.readAsArrayBuffer(file);
+});
         // ===== 担当者選択時に該当者へ保存 =====
         function bindPersonToWork(person) {
             // 着付け

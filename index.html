@@ -41,7 +41,55 @@
 <body>
 
 <h1>2026年度 成人式</h1>
+<!-- ▼ お客様データ選択エリア -->
+<div id="customerSelectArea" class="section" style="margin-top: 20px;">
 
+    <div class="row">
+        <span class="label">お客様データ：</span>
+
+        <!-- 既存データを選ぶプルダウン -->
+        <select id="customerSelect" style="width: 250px;">
+            <option value="">選択してください</option>
+            <!-- Excelから読み込んだデータをここに入れる -->
+        </select>
+
+        <!-- 新規追加ボタン -->
+        <button id="addNewCustomer" style="margin-left: 10px;">新規追加</button>
+    </div>
+
+</div>
+
+<!-- ▼ 新規入力フォーム（普段は非表示） -->
+<div id="customerInputArea" class="section" style="margin-top: 20px; display: none;">
+
+    <div class="row">
+        <span class="label">番号：</span>
+        <input type="text" id="customerNumber" style="width: 200px;">
+    </div>
+
+    <div class="row">
+        <span class="label">名前：</span>
+        <input type="text" id="customerName" style="width: 200px;">
+    </div>
+
+    <div class="row">
+        <span class="label">ふりがな：</span>
+        <input type="text" id="customerKana" style="width: 200px;">
+    </div>
+
+    <div class="row">
+        <span class="label">中学：</span>
+        <input type="text" id="customerSchool" style="width: 200px;">
+    </div>
+
+    <div class="row">
+        <span class="label">備考：</span>
+        <input type="text" id="customerNote" style="width: 300px;">
+    </div>
+
+    <button id="saveCustomer" style="margin-top: 10px;">保存</button>
+
+</div>
 <!-- 名前・番号検索 -->
 <div class="row">
     <span class="label">名前入力</span>

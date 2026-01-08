@@ -303,8 +303,7 @@
 
             reader.readAsText(file, "UTF-8");
         });
-    </script>
-            // ===== 担当者が選ばれたら仕上がり人数を更新 =====
+               // ===== 担当者が選ばれたら仕上がり人数を更新 =====
 
         // 担当者プルダウンのID一覧
         const workSelects = [
@@ -399,60 +398,8 @@
             workSelects.forEach(id => {
                 document.getElementById(id).onchange = () => bindPersonToWork(person);
             });
-        }
-            // ===== 番号検索 =====
-        document.getElementById("numberSearch").addEventListener("input", function () {
-            const num = this.value.trim();
-            if (!num) return;
-
-            const person = persons.find(p => p.number == num);
-            if (!person) return;
-
-            // 個別情報に反映
-            document.getElementById("time").value = ""; // 入店時間は後で実装
-            document.getElementById("number").value = person.number;
-            document.getElementById("personName").value = person.name;
-            document.getElementById("memo").value = person.memo;
-
-            // 着付け・メイク・ヘアーの希望に応じてブロックを有効化
-            updateWorkBlocks(person);
-        });
-
-        // ===== 名前検索（予測候補） =====
-        document.getElementById("nameSearch").addEventListener("input", function () {
-            const keyword = this.value.trim();
-            if (!keyword) return;
-
-            // 先頭一致（ひらがな・漢字）
-            const candidates = persons.filter(p =>
-                p.name.startsWith(keyword)
-            );
-
-            if (candidates.length === 1) {
-                const person = candidates[0];
-
-                // 個別情報に反映
-                document.getElementById("number").value = person.number;
-                document.getElementById("personName").value = person.name;
-                document.getElementById("memo").value = person.memo;
-
-                updateWorkBlocks(person);
-            }
-        });
-
-        // ===== 作業ブロックの有効化 =====
-        function updateWorkBlocks(person) {
-            // 着付け（基本全員）
-            document.querySelector("h3:nth-of-type(1)").style.opacity = 1;
-
-            // メイク
-            const makeBlock = document.querySelectorAll(".sub-block")[1];
-            makeBlock.style.opacity = (person.make === "有") ? 1 : 0.3;
-
-            // ヘアー
-            const hairBlock = document.querySelectorAll(".sub-block")[2];
-            hairBlock.style.opacity = (person.hair === "有") ? 1 : 0.3;
-        }    
+        } 
+    </script>           
 </body>
 </html>
 </body>

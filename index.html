@@ -425,3 +425,63 @@ document.getElementById("staffFile").addEventListener("change", function (e) {
 
     reader.readAsArrayBuffer(file);
 });
+// ----------------------------------------------------
+// 名前検索（ひらがな・漢字の先頭一致）
+// ----------------------------------------------------
+document.getElementById("nameSearchBtn").addEventListener("click", function () {
+    const keyword = document.getElementById("nameInput").value.trim();
+    const select = document.getElementById("customerSearchSelect");
+
+    // 初期化
+    select.innerHTML = '<option value="">検索してください</option>';
+
+    if (keyword === "") {
+        alert("名前を入力してください");
+        return;
+    }
+
+    // ひらがな・漢字の先頭一致で検索
+    const results = customerData.filter(person =>
+        (person["名前"] && person["名前"].startsWith(keyword)) ||
+        (person["ふりがな"] && person["ふりがな"].startsWith(keyword))
+    );
+
+    if (results.length === 0) {
+        alert("該当するお客様がいません");
+        return;
+    }
+
+    // 候補をプルダウンに追加
+    results.forEach(person => {
+        const option = document.createElement("option");
+        option.value = person["番号"];
+        option.textContent = `${person["番号"]}：${person["名前"]}`;
+        select.appendChild(option);
+    });
+
+    // プルダウンを表示
+    document.getElementById("customerSearchArea").style.display = "block";
+});
+
+
+// ----------------------------------------------------
+// 番号検索
+// ----------------------------------------------------
+document.getElementById("numberSearchBtn").addEventListener("click", function () {
+    const number = document.getElementById("numberInput").value.trim();
+
+    if (number === "") {
+        alert("番号を入力してください");
+        return;
+    }
+
+    const person = customerData.find(p => String(p["番号"]) === number);
+
+    if (!person) {
+        alert("該当する番号がありません");
+        return;
+    }
+
+    // お客様情報を画面に反映（パート3で定義）
+    displayCustomerInfo(person);
+});

@@ -3,48 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>成人式 管理メニュー</title>
+    <title>成人式 総合管理画面</title>
 
     <style>
         body {
             font-family: sans-serif;
             background-color: #222;
-            color: #f0f0f0;
-            text-align: center;
-            padding: 40px;
-        }
-
-        h1 {
-            margin-bottom: 40px;
-            font-size: 28px;
-        }
-
-        .menu-button {
-            display: block;
-            width: 260px;
-            margin: 20px auto;
-            padding: 15px;
-            font-size: 20px;
-            background-color: #444;
             color: #fff;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
+            padding: 20px;
         }
 
-        .menu-button:hover {
-            background-color: #666;
+        h2 {
+            margin-top: 0;
+        }
+
+        .block {
+            background-color: #333;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .sub-block {
+            background-color: #444;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        input, select, button {
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            background-color: #555;
+            color: #fff;
+        }
+
+        button:hover {
+            background-color: #777;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>2026年度 成人式 管理メニュー</h1>
+    <!-- データ読み込み -->
+    <div class="block">
+        <h2>【データ読み込み】</h2>
+        <input type="file" id="nameFile"> 名前データ（Excel）
+        <input type="file" id="staffFile"> スタッフデータ（Excel）
+    </div>
 
-    <a class="menu-button" href="新しい人物.html">👤 新しい人物を登録</a>
-    <a class="menu-button" href="新しいスタッフ.html">🧑‍💼 新しいスタッフを登録</a>
-    <a class="menu-button" href="検索.html">🔍 お客様検索</a>
+    <!-- 検索 -->
+    <div class="block">
+        <h2>【検索】</h2>
+
+        <div class="sub-block">
+            <h3>名前検索</h3>
+            <input type="text" id="nameSearch" placeholder="名前を入力">
+            <button>新規成人者追加</button>
+            <button>新規担当者追加</button>
+        </div>
+
+        <div class="sub-block">
+            <h3>番号検索</h3>
+            <input type="number" id="numberSearch" placeholder="番号を入力">
+        </div>
+    </div>
+
+    <!-- 個別情報 -->
+    <div class="block">
+        <h2>【個別情報】</h2>
+        <input type="text" placeholder="入店時間">
+        <input type="text" placeholder="番号">
+        <input type="text" placeholder="名前">
+        <input type="text" placeholder="備考">
+    </div>
+
+    <!-- 作業 -->
+    <div class="block">
+        <h2>【作業】</h2>
+
+        <div class="sub-block">
+            <h3>着付け</h3>
+            <select><option>担当者</option></select>
+            <select><option>サブ担当者</option></select>
+            <label><input type="checkbox"> お直しあり</label>
+            <select><option>お直し担当者</option></select>
+        </div>
+
+        <div class="sub-block">
+            <h3>メイク</h3>
+            <select><option>担当者</option></select>
+            <select><option>サブ担当者</option></select>
+            <label><input type="checkbox"> お直しあり</label>
+            <select><option>お直し担当者</option></select>
+        </div>
+
+        <div class="sub-block">
+            <h3>ヘアー</h3>
+            <select><option>担当者</option></select>
+            <select><option>サブ担当者</option></select>
+            <label><input type="checkbox"> お直しあり</label>
+            <select><option>お直し担当者</option></select>
+        </div>
+    </div>
+
+    <!-- 全体状況 -->
+    <div class="block">
+        <h2>【全体状況】</h2>
+        <p>着付け：0 / 0</p>
+        <p>メイク：0 / 0</p>
+        <p>ヘアー：0 / 0</p>
+    </div>
 
 </body>
 </html>

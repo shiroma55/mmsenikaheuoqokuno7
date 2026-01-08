@@ -313,7 +313,85 @@
 
 <!-- ② ここに自分の JavaScript を書く -->
 <script>
-// ここに JavaScript を書く
+// ------------------------------
+// Excel 読み込み用の変数
+// ------------------------------
+let customerData = []; // お客様データを保存する配列
+
+// ------------------------------
+// お客様データファイル読み込み
+// ------------------------------
+document.getElementById("customerFile").addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const data = new Uint8Array(event.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+
+        // 最初のシートを読み込む
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+
+        // JSON に変換
+        customerData = XLSX.utils.sheet_to_json(sheet);
+
+        // 名前検索エリアを表示
+        document.getElementById("customerSearchArea").style.display = "block";
+
+        alert("お客様データを読み込みました");
+    };
+
+    reader.readAsArrayBuffer(file);
+});
+
+// ------------------------------
+// 名前検索（ひらがな・漢字の先頭一致）
+// ------------------------------
+document.getElementById("nameInput").addEventListener("input", function () {
+    const keyword = this.value.trim();
+    const select = document.getElementById("customerSelect");
+
+    // プルダウンを初期化
+    select.innerHTML = '<option value="">検索してください</option>';
+
+    if (keyword === "") return;
+
+    // 一致するデータを検索
+    const results = customerData.filter(item => {
+        const name = item["名前"] || "";
+        const kana = item["ふりがな"] || "";
+        return name.startsWith(keyword) || kana.startsWith(keyword);
+    });
+
+    // プルダウンに追加
+    results.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item["番号"];
+        option.textContent = item["名前"];
+        select.appendChild(option);
+    });
+});
+
+// ------------------------------
+// 候補を選んだらデータを反映
+// ------------------------------
+document.getElementById("customerSelect").addEventListener("change", function () {
+    const number = this.value;
+    if (!number) return;
+
+    const person = customerData.find(item => item["番号"] == number);
+    if (!person) return;
+
+    // 番号・名前・備考・入店時間などを反映
+    document.getElementById("numberInput").value = person["番号"] || "";
+    document.getElementById("nameDisplay").value = person["名前"] || "";
+    document.getElementById("noteInput").value = person["備考"] || "";
+    document.getElementById("timeInput").value = person["入店時間"] || "";
+
+    alert(person["名前"] + " さんのデータを読み込みました");
+});
 </script>
 
 </body>

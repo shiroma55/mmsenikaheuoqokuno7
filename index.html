@@ -138,6 +138,26 @@
     < type="text" id="number">
     <button id="numberSearchBtn">検索</button>
 </div>
+// ▼ 名前入力欄のオートコンプリート
+document.getElementById("nameInput").addEventListener("input", function () {
+    const keyword = this.value.trim();
+    const list = document.getElementById("nameList");
+
+    list.innerHTML = ""; // 初期化
+
+    if (keyword === "") return;
+
+    const results = customerData.filter(person =>
+        (person["名前"] && person["名前"].startsWith(keyword)) ||
+        (person["ふりがな"] && person["ふりがな"].startsWith(keyword))
+    );
+
+    results.forEach(person => {
+        const option = document.createElement("option");
+        option.value = person["名前"];
+        list.appendChild(option);
+    });
+});    
 <!-- ▼ 入店情報 -->
 <div class="row" style="margin-top: 20px;">
     <span class="label">入店時間:</span>

@@ -344,17 +344,17 @@
             updateFinishCount();
         }
 　　　　// ===== 番号検索 =====
-document.getElementById("numberSearch").addEventListener("change", function () {
-    const num = this.value;
+　　　　// ===== 番号検索 =====
+　　　　document.getElementById("numberSearch").addEventListener("change", function () {
+    　　　　const num = this.value;
+  　　　　  const person = persons.find(p => p.number == num);
 
-    const person = persons.find(p => p.number == num);
-
-    if (person) {
-        updateWorkBlocks(person);
-    } else {
-        alert("該当する番号が見つかりません");
-    }
-});
+  　　　　  if (person) {
+   　　　　     updateWorkBlocks(person);
+  　　　　  } else {
+      　　　　  alert("該当する番号が見つかりません");
+  　　　　  }
+　　　　});
         // 番号検索や名前検索で人が決まったら呼ぶ
         function updateWorkBlocks(person) {
             // 既存の処理（ブロックの薄さ変更）

@@ -16,51 +16,55 @@
 
         input, select, button {
             padding: 8px;
-            margin-right: 8px;
+            margin: 6px 0;
             font-size: 16px;
+            width: 250px;
+            display: block;
         }
     </style>
 
-    <!-- XLSX 読み込み -->
     <script src="xlsx.full.min.js"></script>
 </head>
 
 <body>
 
- <!-- 番号入力欄 -->
-<input id="numberInput" type="text" placeholder="番号を入力">
+    <h1>2026年度 成人式</h1>
 
-<!-- 名前検索入力欄 -->
-<input id="nameInput" type="text" placeholder="名前を入力">
+    <!-- お客様データ読み込み -->
+    <label>お客様データ（Excel）を読み込む</label>
+    <input id="customerFile" type="file">
 
-<!-- 名前検索の候補リスト -->
-<select id="customerSelect">
-    <option value="">検索してください</option>
-</select>
+    <!-- 番号検索 -->
+    <label>番号で検索</label>
+    <input id="numberInput" type="text" placeholder="番号を入力">
 
-<!-- 名前検索エリア -->
-<div id="customerSearchArea" style="display:none;"></div>
+    <!-- 名前検索 -->
+    <label>名前で検索（ひらがな・漢字）</label>
+    <input id="nameInput" type="text" placeholder="名前を入力">
 
-<!-- ▼ ここに追加する！ ▼ -->
+    <!-- 名前検索の候補リスト -->
+    <select id="customerSelect">
+        <option value="">検索してください</option>
+    </select>
 
-<!-- お客様データ読み込み -->
-<input id="customerFile" type="file">
+    <!-- 名前検索エリア -->
+    <div id="customerSearchArea" style="display:none;"></div>
 
-<!-- 名前表示欄 -->
-<input id="nameDisplay" type="text" placeholder="名前" readonly>
+    <!-- データ表示欄 -->
+    <label>名前</label>
+    <input id="nameDisplay" type="text" readonly>
 
-<!-- 備考 -->
-<input id="noteInput" type="text" placeholder="備考">
+    <label>備考</label>
+    <input id="noteInput" type="text">
 
-<!-- 入店時間 -->
-<input id="timeInput" type="text" placeholder="入店時間">
+    <label>入店時間</label>
+    <input id="timeInput" type="text">
 
-    <!-- ▼ JavaScript -->
     <script>
         let customerData = [];
 
         // お客様データ読み込み
-        document.getElementById("customerFile")?.addEventListener("change", function (e) {
+        document.getElementById("customerFile").addEventListener("change", function (e) {
             const file = e.target.files[0];
             if (!file) return;
 
@@ -105,7 +109,7 @@
             });
         });
 
-        // 候補選択
+        // 候補を選んだらデータを反映
         document.getElementById("customerSelect").addEventListener("change", function () {
             const number = this.value;
             if (!number) return;
@@ -114,9 +118,9 @@
             if (!person) return;
 
             document.getElementById("numberInput").value = person["番号"] || "";
-            document.getElementById("nameDisplay")?.value = person["名前"] || "";
-            document.getElementById("noteInput")?.value = person["備考"] || "";
-            document.getElementById("timeInput")?.value = person["入店時間"] || "";
+            document.getElementById("nameDisplay").value = person["名前"] || "";
+            document.getElementById("noteInput").value = person["備考"] || "";
+            document.getElementById("timeInput").value = person["入店時間"] || "";
 
             alert(person["名前"] + " さんのデータを読み込みました");
         });
@@ -129,631 +133,10 @@
             const person = customerData.find(item => item["番号"] == number);
             if (!person) return;
 
-            document.getElementById("nameDisplay")?.value = person["名前"] || "";
-            document.getElementById("noteInput")?.value = person["備考"] || "";
-            document.getElementById("timeInput")?.value = person["入店時間"] || "";
+            document.getElementById("nameDisplay").value = person["名前"] || "";
+            document.getElementById("noteInput").value = person["備考"] || "";
+            document.getElementById("timeInput").value = person["入店時間"] || "";
         });
     </script>
 
 </body>
-</html>
-<h1>2026年度 成人式</h1>
-
-<!-- ▼ ファイル選択エリア -->
-<div id="fileSelectArea" class="section" style="margin-top: 20px;">
-
-    <div class="row">
-        <span class="label">お客様データファイル：</span>
-        <input type="file" id="customerFile" accept=".xlsx">
-    </div>
-
-    <div class="row" style="margin-top: 10px;">
-        <span class="label">スタッフデータファイル：</span>
-        <input type="file" id="staffFile" accept=".xlsx">
-    </div>
-
-</div>
-
-<!-- ▼ お客様選択エリア（データ読み込み後に表示） -->
-<div id="customerSelectArea" class="section" style="margin-top: 20px; display: none;">
-
-    <div class="row">
-        <span class="label">お客様データ：</span>
-
-        <select id="customerSelect" style="width: 250px;">
-            <option value="">選択してください</option>
-        </select>
-    </div>
-
-</div>
-<!-- ▼ 新規入力フォーム（普段は非表示） -->
-<div id="customerArea" class="section" style="margin-top: 20px; display: none;">
-
-    <div class="row">
-        <span class="label">番号：</span>
-        <input type="text" id="customerNumber" style="width: 200px;">
-    </div>
-
-    <div class="row">
-        <span class="label">名前：</span>
-        <input type="text" id="customerName" style="width: 200px;">
-    </div>
-
-    <div class="row">
-        <span class="label">ふりがな：</span>
-        <input type="text" id="customerKana" style="width: 200px;">
-    </div>
-
-    <div class="row">
-        <span class="label">中学：</span>
-        <input type="text" id="customerSchool" style="width: 200px;">
-    </div>
-
-    <div class="row">
-        <span class="label">備考：</span>
-        <input type="text" id="customerNote" style="width: 300px;">
-    </div>
-
-</div>
-
-<!-- ▼ 保存ボタン（新規入力フォームの最後） -->
-<button id="saveCustomer" style="margin-top: 10px;">保存</button>
-
-<!-- ▼ 名前検索 -->
-<div class="row" style="margin-top: 20px;">
-    <span class="label">名前入力：</span>
-    <input list="nameList" id="nameInput" placeholder="名前を入力" style="width: 250px;">
-    <datalist id="nameList"></datalist>
-</div>
-
-<!-- ▼ 名前検索の候補プルダウン -->
-<div id="customerSearchArea" class="section" style="margin-top: 10px; display: none;">
-    <div class="row">
-        <span class="label">候補：</span>
-    </div>
-</div>
-
-<!-- ▼ 新規追加ボタン -->
-<div class="row" style="margin-top: 20px;">
-    <button onclick="location.href='new_person.html'">新規成人者追加</button>
-    <button onclick="location.href='new_staff.html'">新規担当者追加</button>
-</div>
-
-<!-- ▼ 番号検索 -->
-<div class="row" style="margin-top: 20px;">
-    <span class="label">番号入力</span>
-    <input type="text" id="number" style="width: 200px;">
-    <button id="numberSearchBtn">検索</button>
-</div>
-
-<!-- ▼ 名前入力欄のオートコンプリート -->
-<script>
-document.getElementById("nameInput").addEventListener("input", function () {
-    const keyword = this.value.trim();
-    const list = document.getElementById("nameList");
-
-    list.innerHTML = ""; // 初期化
-
-    if (keyword === "") return;
-
-    const results = customerData.filter(person =>
-        (person["名前"] && person["名前"].startsWith(keyword)) ||
-        (person["ふりがな"] && person["ふりがな"].startsWith(keyword))
-    );
-
-    results.forEach(person => {
-        const option = document.createElement("option");
-        option.value = person["名前"];
-        list.appendChild(option);
-    });
-});
-    // ▼ 名前を選択したら自動で反映
-document.getElementById("nameInput").addEventListener("change", function () {
-    const name = this.value.trim();
-    if (!name) return;
-
-    const person = customerData.find(p => p["名前"] === name);
-
-    if (person) {
-        displayCustomerInfo(person);
-    }
-});
-</script>
-<!-- ▼ 入店情報 -->
-<div class="row" style="margin-top: 20px;">
-    <span class="label">入店時間:</span>
-    <span id="entryTime">--:--</span>
-</div>
-
-<div class="row">
-    <span class="label">番号:</span>
-    <span id="displayNumber">---</span>
-</div>
-
-<div class="row">
-    <span class="label">名前:</span>
-    <span id="displayName">---</span>
-</div>
-
-<div class="row">
-    <span class="label">備考:</span>
-    <span id="displayNote">---</span>
-</div>
-
-<!-- ▼ 着付けブロック -->
-<table style="border-collapse: collapse; margin-top: 10px; width: 100%; table-layout: fixed;">
-
-    <colgroup>
-        <col style="width: 20%;">
-        <col style="width: 15%;">
-        <col style="width: 15%;">
-        <col style="width: 10%;">
-        <col style="width: 10%;">
-        <col style="width: 30%;">
-    </colgroup>
-
-    <!-- 1行目：お直し -->
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td style="text-align:center; white-space: nowrap;">お直し</td>
-        <td></td>
-        <td></td>
-    </tr>
-
-    <!-- 2行目：あり・なし -->
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td style="text-align:center;">あり</td>
-        <td style="text-align:center;">なし</td>
-        <td></td>
-    </tr>
-
-    <!-- 3行目：入力欄 -->
-    <tr>
-        <td style="font-weight: bold;">着付け</td>
-
-        <!-- 担当者① -->
-        <td>
-            <select id="kimonoStaff1" style="width: 100%;">
-                <option value="">選択</option>
-            </select>
-        </td>
-
-        <!-- 担当者② -->
-        <td>
-            <select id="kimonoStaff2" style="width: 100%;">
-                <option value="">選択</option>
-            </select>
-        </td>
-
-        <!-- お直し：あり -->
-        <td style="text-align:center;">
-            <input type="radio" name="kimonoFix" value="あり" id="kimonoFixYes">
-        </td>
-
-        <!-- お直し：なし -->
-        <td style="text-align:center;">
-            <input type="radio" name="kimonoFix" value="なし" id="kimonoFixNo">
-        </td>
-
-        <!-- お直し担当者 -->
-        <td>
-            <select id="kimonoFixStaff" style="width: 100%;">
-                <option value="">選択</option>
-            </select>
-        </td>
-    </tr>
-
-</table>
-    <!-- ▼ メイクブロック -->
-<table style="border-collapse: collapse; margin-top: 20px; width: 100%; table-layout: fixed;">
-
-    <colgroup>
-        <col style="width: 20%;">
-        <col style="width: 15%;">
-        <col style="width: 15%;">
-        <col style="width: 10%;">
-        <col style="width: 10%;">
-        <col style="width: 30%;">
-    </colgroup>
-
-    <!-- 1行目：お直し -->
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td style="text-align:center; white-space: nowrap;">お直し</td>
-        <td></td>
-        <td></td>
-    </tr>
-
-    <!-- 2行目：あり・なし -->
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td style="text-align:center;">あり</td>
-        <td style="text-align:center;">なし</td>
-        <td></td>
-    </tr>
-
-    <!-- 3行目：入力欄 -->
-    <tr>
-        <td style="font-weight: bold;">メイク</td>
-
-        <!-- 担当者① -->
-        <td>
-            <select id="makeStaff1" style="width: 100%;">
-                <option value="">選択</option>
-            </select>
-        </td>
-
-        <!-- 担当者② -->
-        <td>
-            <select id="makeStaff2" style="width: 100%;">
-                <option value="">選択</option>
-            </select>
-        </td>
-
-        <!-- お直し：あり -->
-        <td style="text-align:center;">
-            <input type="radio" name="makeFix" value="あり" id="makeFixYes">
-        </td>
-
-        <!-- お直し：なし -->
-        <td style="text-align:center;">
-            <input type="radio" name="makeFix" value="なし" id="makeFixNo">
-        </td>
-
-        <!-- お直し担当者 -->
-        <td>
-            <select id="makeFixStaff" style="width: 100%;">
-                <option value="">選択</option>
-            </select>
-        </td>
-    </tr>
-
-</table>
-    <!-- ▼ ヘアーブロック -->
-<table style="border-collapse: collapse; margin-top: 20px; width: 100%; table-layout: fixed;">
-
-    <colgroup>
-        <col style="width: 20%;">
-        <col style="width: 15%;">
-        <col style="width: 15%;">
-        <col style="width: 10%;">
-        <col style="width: 10%;">
-        <col style="width: 30%;">
-    </colgroup>
-
-    <!-- 1行目：お直し -->
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td style="text-align:center; white-space: nowrap;">お直し</td>
-        <td></td>
-        <td></td>
-    </tr>
-
-    <!-- 2行目：あり・なし -->
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td style="text-align:center;">あり</td>
-        <td style="text-align:center;">なし</td>
-        <td></td>
-    </tr>
-
-    <!-- 3行目：入力欄 -->
-    <tr>
-        <td style="font-weight: bold;">ヘアー</td>
-
-        <!-- 担当者① -->
-        <td>
-            <select id="hairStaff1" style="width: 100%;">
-                <option value="">選択</option>
-            </select>
-        </td>
-
-        <!-- 担当者② -->
-        <td>
-            <select id="hairStaff2" style="width: 100%;">
-                <option value="">選択</option>
-            </select>
-        </td>
-
-        <!-- お直し：あり -->
-        <td style="text-align:center;">
-            <input type="radio" name="hairFix" value="あり" id="hairFixYes">
-        </td>
-
-        <!-- お直し：なし -->
-        <td style="text-align:center;">
-            <input type="radio" name="hairFix" value="なし" id="hairFixNo">
-        </td>
-
-        <!-- お直し担当者 -->
-        <td>
-            <select id="hairFixStaff" style="width: 100%;">
-                <option value="">選択</option>
-            </select>
-        </td>
-    </tr>
-
-</table>
-<!-- ▼ 進行状況 -->
-<div class="status-box" style="margin-top: 30px;">
-    <div>着付け: 仕上がり <span id="kimonoDone">0</span> / 全体 <span id="kimonoTotal">0</span></div>
-    <div>メイク: 仕上がり <span id="makeDone">0</span> / 全体 <span id="makeTotal">0</span></div>
-    <div>ヘアー: 仕上がり <span id="hairDone">0</span> / 全体 <span id="hairTotal">0</span></div>
-</div>
-<!-- ▼ XLSX 読み込みライブラリ -->
-<script src="xlsx.full.min.js"></script>
-
-<!-- ▼ ここから自分の JavaScript -->
-<script>
-// ----------------------------------------------------
-// Excel 読み込み用の変数
-// ----------------------------------------------------
-let customerData = [];   // お客様データ
-let staffData = [];      // スタッフデータ
-
-// ----------------------------------------------------
-// お客様データファイル読み込み
-// ----------------------------------------------------
-document.getElementById("customerFile").addEventListener("change", function (e) {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function (event) {
-        const data = new Uint8Array(event.target.result);
-        const workbook = XLSX.read(data, { type: "array" });
-
-        // 最初のシートを読み込む
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-
-        // JSON に変換
-        customerData = XLSX.utils.sheet_to_json(sheet);
-        console.log(customerData);  // ← これを追加！
-        // ★ ここに追加！
-        console.log(customerData);
-
-        // 名前検索エリアを表示
-        document.getElementById("customerSearchArea").style.display = "block";
-
-        alert("お客様データを読み込みました");
-    };
-
-    reader.readAsArrayBuffer(file);
-});
-
-// ----------------------------------------------------
-// スタッフデータファイル読み込み
-// ----------------------------------------------------
-document.getElementById("staffFile").addEventListener("change", function (e) {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function (event) {
-        const data = new Uint8Array(event.target.result);
-        const workbook = XLSX.read(data, { type: "array" });
-
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-
-        staffData = XLSX.utils.sheet_to_json(sheet);
-
-        // ★ ここが最重要！読み込み完了後に実行する
-        setStaffList();
-
-        alert("スタッフデータを読み込みました");
-    };
-
-    reader.readAsArrayBuffer(file);
-});
-// ----------------------------------------------------
-// 名前検索（ひらがな・漢字の先頭一致）
-// ----------------------------------------------------
-document.getElementById("nameSearchBtn").addEventListener("click", function () {
-    const keyword = document.getElementById("name").value.trim();
-    const select = document.getElementById("customerSearchSelect");
-
-    // 初期化
-    select.innerHTML = '<option value="">検索してください</option>';
-
-    if (keyword === "") {
-        alert("名前を入力してください");
-        return;
-    }
-
-    // ひらがな・漢字の先頭一致で検索
-    const results = customerData.filter(person =>
-        (person["名前"] && person["名前"].startsWith(keyword)) ||
-        (person["ふりがな"] && person["ふりがな"].startsWith(keyword))
-    );
-
-    if (results.length === 0) {
-        alert("該当するお客様がいません");
-        return;
-    }
-
-    // 候補をプルダウンに追加
-    results.forEach(person => {
-        const option = document.createElement("option");
-        option.value = person["番号"];
-        option.textContent = `${person["番号"]}：${person["名前"]}`;
-        select.appendChild(option);
-    });
-
-    // プルダウンを表示
-    document.getElementById("customerSearchArea").style.display = "block";
-});
-
-
-// ----------------------------------------------------
-// 番号検索
-// ----------------------------------------------------
-document.getElementById("numberSearchBtn").addEventListener("click", function () {
-    const number = document.getElementById("number").value.trim();
-
-    if (number === "") {
-        alert("番号を入力してください");
-        return;
-    }
-
-    // ← この行を修正する
-    const person = customerData.find(p => String(p["番号"]).trim() === number);
-
-    if (!person) {
-        alert("該当する番号がありません");
-        return;
-    }
-
-    displayCustomerInfo(person);
-});
-// ----------------------------------------------------
-// お客様情報を画面に反映する関数
-// ----------------------------------------------------
-function displayCustomerInfo(person) {
-
-    // 番号・名前・備考を表示
-    document.getElementById("displayNumber").textContent = person["番号"] || "---";
-    document.getElementById("displayName").textContent = person["名前"] || "---";
-    document.getElementById("displayNote").textContent = person["備考"] || "---";
-
-    // 入店時間（初回のみ記録）
-    if (!person["入店時間"]) {
-        const now = new Date();
-        const time = now.getHours().toString().padStart(2, "0") + ":" +
-                     now.getMinutes().toString().padStart(2, "0");
-
-        person["入店時間"] = time;
-    }
-
-    document.getElementById("entryTime").textContent = person["入店時間"];
-
-    // 進行状況の更新（パート4で定義）
-    updateProgress();
-}
-
-
-// ----------------------------------------------------
-// スタッフ一覧をプルダウンに反映
-// ----------------------------------------------------
-function setStaffList() {
-    const staffNames = staffData.map(s => s["名前"]).filter(Boolean);
-
-    const targets = [
-        "kimonoStaff1", "kimonoStaff2", "kimonoFixStaff",
-        "makeStaff1", "makeStaff2", "makeFixStaff",
-        "hairStaff1", "hairStaff2", "hairFixStaff"
-    ];
-
-    targets.forEach(id => {
-        const select = document.getElementById(id);
-        if (!select) return;
-
-        // 初期化
-        select.innerHTML = '<option value="">選択してください</option>';
-
-        // スタッフ名を追加
-        staffNames.forEach(name => {
-            const option = document.createElement("option");
-            option.value = name;
-            option.textContent = name;
-            select.appendChild(option);
-        });
-    });
-}
-
-
-// ----------------------------------------------------
-// スタッフデータ読み込み後にプルダウンを更新
-// ----------------------------------------------------
-document.getElementById("staffFile").addEventListener("change", function () {
-    // 読み込み完了後に setStaffList() が呼ばれるように
-    setTimeout(setStaffList, 300);
-});
-// ----------------------------------------------------
-// お直し（あり／なし）の排他処理
-// ----------------------------------------------------
-function setupFixRadio(groupName) {
-    const yes = document.getElementById(groupName + "Yes");
-    const no  = document.getElementById(groupName + "No");
-
-    yes.addEventListener("change", () => {
-        if (yes.checked) no.checked = false;
-    });
-
-    no.addEventListener("change", () => {
-        if (no.checked) yes.checked = false;
-    });
-}
-
-// 着付け・メイク・ヘアーに適用
-setupFixRadio("kimonoFix");
-setupFixRadio("makeFix");
-setupFixRadio("hairFix");
-
-
-// ----------------------------------------------------
-// 進行状況の更新
-// ----------------------------------------------------
-function updateProgress() {
-
-    // 全体数
-    document.getElementById("kimonoTotal").textContent = customerData.length;
-    document.getElementById("makeTotal").textContent   = customerData.length;
-    document.getElementById("hairTotal").textContent   = customerData.length;
-
-    // 仕上がり数（お直し「なし」 or 「あり」どちらでもOK）
-    const kimonoDone = customerData.filter(p => p["着付け完了"]).length;
-    const makeDone   = customerData.filter(p => p["メイク完了"]).length;
-    const hairDone   = customerData.filter(p => p["ヘアー完了"]).length;
-
-    document.getElementById("kimonoDone").textContent = kimonoDone;
-    document.getElementById("makeDone").textContent   = makeDone;
-    document.getElementById("hairDone").textContent   = hairDone;
-}
-
-
-// ----------------------------------------------------
-// 保存ボタン（新規入力フォーム）
-// ----------------------------------------------------
-document.getElementById("saveCustomer").addEventListener("click", function () {
-
-    const number = document.getElementById("customerNumber").value.trim();
-    const name   = document.getElementById("customerName").value.trim();
-    const kana   = document.getElementById("customerKana").value.trim();
-    const school = document.getElementById("customerSchool").value.trim();
-    const note   = document.getElementById("customerNote").value.trim();
-
-    if (!number || !name) {
-        alert("番号と名前は必須です");
-        return;
-    }
-
-    customerData.push({
-        "番号": number,
-        "名前": name,
-        "ふりがな": kana,
-        "中学": school,
-        "備考": note
-    });
-
-    alert("新規お客様を追加しました");
-
-    updateProgress();
-});
-</script>
-</body>
-

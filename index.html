@@ -311,3 +311,50 @@
     </tr>
 
 </table>
+<table style="border-collapse: collapse; margin-top: 20px; width: 100%; table-layout: fixed;">
+
+    <colgroup>
+        <col style="width: 20%;">   <!-- ヘアー -->
+        <col style="width: 15%;">   <!-- 担当者① -->
+        <col style="width: 15%;">   <!-- 担当者② -->
+        <col style="width: 10%;">   <!-- あり -->
+        <col style="width: 10%;">   <!-- なし -->
+        <col style="width: 30%;">   <!-- お直し担当者 -->
+    </colgroup>
+
+    <tr>
+        <td style="font-weight: bold;">ヘアー</td>
+
+        <!-- 担当者① -->
+        <td>
+            <select id="hairStaff1" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+
+        <!-- 担当者② -->
+        <td>
+            <select id="hairStaff2" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+
+        <!-- お直し：あり -->
+        <td style="text-align:center;">
+            <input type="radio" name="hairFix" id="hairFixYes" value="あり">
+        </td>
+
+        <!-- お直し：なし -->
+        <td style="text-align:center;">
+            <input type="radio" name="hairFix" id="hairFixNo" value="なし">
+        </td>
+
+        <!-- お直し担当者 -->
+        <td>
+            <select id="hairFixStaff" style="width: 90%;">
+                <option value="">選択してください</option>
+            </select>
+        </td>
+    </tr>
+
+</table>

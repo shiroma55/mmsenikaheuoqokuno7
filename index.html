@@ -41,24 +41,30 @@
 <body>
 
 <h1>2026年度 成人式</h1>
-<!-- ▼ お客様データ選択エリア -->
-<div id="customerSelectArea" class="section" style="margin-top: 20px;">
+<div id="fileSelectArea" class="section" style="margin-top: 20px;">
+
+    <div class="row">
+        <span class="label">お客様データファイル：</span>
+        <input type="file" id="customerFile" accept=".xlsx">
+    </div>
+
+    <div class="row" style="margin-top: 10px;">
+        <span class="label">スタッフデータファイル：</span>
+        <input type="file" id="staffFile" accept=".xlsx">
+    </div>
+
+</div>
+<div id="customerSelectArea" class="section" style="margin-top: 20px; display: none;">
 
     <div class="row">
         <span class="label">お客様データ：</span>
 
-        <!-- 既存データを選ぶプルダウン -->
         <select id="customerSelect" style="width: 250px;">
             <option value="">選択してください</option>
-            <!-- Excelから読み込んだデータをここに入れる -->
         </select>
-
-        <!-- 新規追加ボタン -->
-        <button id="addNewCustomer" style="margin-left: 10px;">新規追加</button>
     </div>
 
 </div>
-
 <!-- ▼ 新規入力フォーム（普段は非表示） -->
 <div id="customerInputArea" class="section" style="margin-top: 20px; display: none;">
 

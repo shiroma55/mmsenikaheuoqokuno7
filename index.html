@@ -485,3 +485,66 @@ document.getElementById("numberSearchBtn").addEventListener("click", function ()
     // お客様情報を画面に反映（パート3で定義）
     displayCustomerInfo(person);
 });
+// ----------------------------------------------------
+// お客様情報を画面に反映する関数
+// ----------------------------------------------------
+function displayCustomerInfo(person) {
+
+    // 番号・名前・備考を表示
+    document.getElementById("displayNumber").textContent = person["番号"] || "---";
+    document.getElementById("displayName").textContent = person["名前"] || "---";
+    document.getElementById("displayNote").textContent = person["備考"] || "---";
+
+    // 入店時間（初回のみ記録）
+    if (!person["入店時間"]) {
+        const now = new Date();
+        const time = now.getHours().toString().padStart(2, "0") + ":" +
+                     now.getMinutes().toString().padStart(2, "0");
+
+        person["入店時間"] = time;
+    }
+
+    document.getElementById("entryTime").textContent = person["入店時間"];
+
+    // 進行状況の更新（パート4で定義）
+    updateProgress();
+}
+
+
+// ----------------------------------------------------
+// スタッフ一覧をプルダウンに反映
+// ----------------------------------------------------
+function setStaffList() {
+    const staffNames = staffData.map(s => s["名前"]).filter(Boolean);
+
+    const targets = [
+        "kimonoStaff1", "kimonoStaff2", "kimonoFixStaff",
+        "makeStaff1", "makeStaff2", "makeFixStaff",
+        "hairStaff1", "hairStaff2", "hairFixStaff"
+    ];
+
+    targets.forEach(id => {
+        const select = document.getElementById(id);
+        if (!select) return;
+
+        // 初期化
+        select.innerHTML = '<option value="">選択してください</option>';
+
+        // スタッフ名を追加
+        staffNames.forEach(name => {
+            const option = document.createElement("option");
+            option.value = name;
+            option.textContent = name;
+            select.appendChild(option);
+        });
+    });
+}
+
+
+// ----------------------------------------------------
+// スタッフデータ読み込み後にプルダウンを更新
+// ----------------------------------------------------
+document.getElementById("staffFile").addEventListener("change", function () {
+    // 読み込み完了後に setStaffList() が呼ばれるように
+    setTimeout(setStaffList, 300);
+});

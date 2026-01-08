@@ -254,7 +254,7 @@
                 console.log("名前データ読み込み完了", persons, totals);
             };
 
-            reader.readAsText(file, "UTF-8");
+           reader.readAsArrayBuffer(file);
         });
 
         // ===== スタッフデータ読み込み =====
@@ -302,7 +302,7 @@
                 console.log("スタッフデータ読み込み完了", staffList);
             };
 
-            reader.readAsText(file, "UTF-8");
+           reader.readAsArrayBuffer(file);
         });
 
             // ===== 担当者が選ばれたら仕上がり人数を更新 =====

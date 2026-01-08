@@ -455,6 +455,9 @@ document.getElementById("staffFile").addEventListener("change", function (e) {
 
         staffData = XLSX.utils.sheet_to_json(sheet);
 
+        // ★ ここが最重要！読み込み完了後に実行する
+        setStaffList();
+
         alert("スタッフデータを読み込みました");
     };
 

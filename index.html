@@ -23,7 +23,7 @@
             margin-bottom: 15px;
         }
 
-        input, select, button {
+        , select, button {
             padding: 8px;
             margin-right: 8px;
             font-size: 16px;
@@ -50,12 +50,12 @@
 
     <div class="row">
         <span class="label">お客様データファイル：</span>
-        <input type="file" id="customerFile" accept=".xlsx">
+        < type="file" id="customerFile" accept=".xlsx">
     </div>
 
     <div class="row" style="margin-top: 10px;">
         <span class="label">スタッフデータファイル：</span>
-        <input type="file" id="staffFile" accept=".xlsx">
+        < type="file" id="staffFile" accept=".xlsx">
     </div>
 
 </div>
@@ -74,31 +74,31 @@
 </div>
 
 <!-- ▼ 新規入力フォーム（普段は非表示） -->
-<div id="customerInputArea" class="section" style="margin-top: 20px; display: none;">
+<div id="customerArea" class="section" style="margin-top: 20px; display: none;">
 
     <div class="row">
         <span class="label">番号：</span>
-        <input type="text" id="customerNumber" style="width: 200px;">
+        < type="text" id="customerNumber" style="width: 200px;">
     </div>
 
     <div class="row">
         <span class="label">名前：</span>
-        <input type="text" id="customerName" style="width: 200px;">
+        < type="text" id="customerName" style="width: 200px;">
     </div>
 
     <div class="row">
         <span class="label">ふりがな：</span>
-        <input type="text" id="customerKana" style="width: 200px;">
+        < type="text" id="customerKana" style="width: 200px;">
     </div>
 
     <div class="row">
         <span class="label">中学：</span>
-        <input type="text" id="customerSchool" style="width: 200px;">
+        < type="text" id="customerSchool" style="width: 200px;">
     </div>
 
     <div class="row">
         <span class="label">備考：</span>
-        <input type="text" id="customerNote" style="width: 300px;">
+        < type="text" id="customerNote" style="width: 300px;">
     </div>
 
 </div>
@@ -109,9 +109,9 @@
 
 <!-- ▼ 名前検索 -->
 <div class="row" style="margin-top: 20px;">
-    <span class="label">名前入力</span>
-    <input type="text" id="nameInput">
-    
+    <span class="label">名前入力：</span>
+    <input list="nameList" id="nameInput" placeholder="名前を入力" style="width: 250px;">
+    <datalist id="nameList"></datalist>
 </div>
 
 <!-- ▼ 名前検索の候補プルダウン -->
@@ -135,7 +135,7 @@
 <!-- ▼ 番号検索 -->
 <div class="row" style="margin-top: 20px;">
     <span class="label">番号入力</span>
-    <input type="text" id="numberInput">
+    < type="text" id="number">
     <button id="numberSearchBtn">検索</button>
 </div>
 <!-- ▼ 入店情報 -->
@@ -210,12 +210,12 @@
 
         <!-- お直し：あり -->
         <td style="text-align:center;">
-            <input type="radio" name="kimonoFix" value="あり" id="kimonoFixYes">
+            < type="radio" name="kimonoFix" value="あり" id="kimonoFixYes">
         </td>
 
         <!-- お直し：なし -->
         <td style="text-align:center;">
-            <input type="radio" name="kimonoFix" value="なし" id="kimonoFixNo">
+            < type="radio" name="kimonoFix" value="なし" id="kimonoFixNo">
         </td>
 
         <!-- お直し担当者 -->
@@ -258,12 +258,12 @@
 
         <!-- お直し：あり -->
         <td style="text-align:center;">
-            <input type="radio" name="makeFix" id="makeFixYes" value="あり">
+            < type="radio" name="makeFix" id="makeFixYes" value="あり">
         </td>
 
         <!-- お直し：なし -->
         <td style="text-align:center;">
-            <input type="radio" name="makeFix" id="makeFixNo" value="なし">
+            < type="radio" name="makeFix" id="makeFixNo" value="なし">
         </td>
 
         <!-- お直し担当者 -->
@@ -305,12 +305,12 @@
 
         <!-- お直し：あり -->
         <td style="text-align:center;">
-            <input type="radio" name="hairFix" id="hairFixYes" value="あり">
+            < type="radio" name="hairFix" id="hairFixYes" value="あり">
         </td>
 
         <!-- お直し：なし -->
         <td style="text-align:center;">
-            <input type="radio" name="hairFix" id="hairFixNo" value="なし">
+            < type="radio" name="hairFix" id="hairFixNo" value="なし">
         </td>
 
         <!-- お直し担当者 -->
@@ -393,7 +393,7 @@ document.getElementById("staffFile").addEventListener("change", function (e) {
 // 名前検索（ひらがな・漢字の先頭一致）
 // ----------------------------------------------------
 document.getElementById("nameSearchBtn").addEventListener("click", function () {
-    const keyword = document.getElementById("nameInput").value.trim();
+    const keyword = document.getElementById("name").value.trim();
     const select = document.getElementById("customerSearchSelect");
 
     // 初期化
@@ -432,7 +432,7 @@ document.getElementById("nameSearchBtn").addEventListener("click", function () {
 // 番号検索
 // ----------------------------------------------------
 document.getElementById("numberSearchBtn").addEventListener("click", function () {
-    const number = document.getElementById("numberInput").value.trim();
+    const number = document.getElementById("number").value.trim();
 
     if (number === "") {
         alert("番号を入力してください");

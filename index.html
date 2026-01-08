@@ -218,6 +218,8 @@
             if (!person.kimono || person.kimono === "有") totals.kimonoTotal++;
             if (person.make === "有") totals.makeTotal++;
             if (person.hair === "有") totals.hairTotal++;
+            console.log(persons);  // ← ここに追加
+
         });
 
         document.getElementById("kimonoStatus").textContent =

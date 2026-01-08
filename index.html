@@ -428,7 +428,7 @@ document.getElementById("customerFile").addEventListener("change", function (e) 
 
         // JSON に変換
         customerData = XLSX.utils.sheet_to_json(sheet);
-
+        console.log(customerData);  // ← これを追加！
         // ★ ここに追加！
         console.log(customerData);
 

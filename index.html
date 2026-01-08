@@ -510,6 +510,7 @@ document.getElementById("numberSearchBtn").addEventListener("click", function ()
         return;
     }
 
+    // ← この行を修正する
     const person = customerData.find(p => String(p["番号"]).trim() === number);
 
     if (!person) {
@@ -517,7 +518,6 @@ document.getElementById("numberSearchBtn").addEventListener("click", function ()
         return;
     }
 
-    // お客様情報を画面に反映（パート3で定義）
     displayCustomerInfo(person);
 });
 // ----------------------------------------------------

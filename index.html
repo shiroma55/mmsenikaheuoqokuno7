@@ -3,6 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 必要なら CSS や xlsx の読み込み -->
+</head>
+
+<body>
+
+    <!-- ここに画面の HTML（番号入力欄など）がある） -->
+
+    <!-- ▼ JavaScript をここに移動する！ -->
+<script>
+    // データを入れる箱を先に作っておく
+    let customerData = [];
+
+    // お客様データ読み込み
+    document.getElementById("customerFile").addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const data = new Uint8Array(event.target.result);
+            const workbook = XLSX.read(data, { type: "array" });
+
+            const sheetName = workbook.SheetNames[0];
+            const sheet = workbook.Sheets[sheetName];
+
+            customerData = XLSX.utils.sheet_to_json(sheet);
+
+            document.getElementById("customerSearchArea").style.display = "block";
+
+            alert("お客様データを読み込みました");
+        };
+
+        reader.readAsArrayBuffer(file);
+    });
+
+    // 名前検索（ひらがな・漢字の先頭一致）
+    document.getElementById("nameInput").addEventListener("input", function () {
+        const keyword = this.value.trim();
+        const select = document.getElementById("customerSelect");
+
+        select.innerHTML = '<option value="">検索してください</option>';
+
+        if (keyword === "") return;
+
+        const results = customerData.filter(item => {
+            const name = item["名前"] || "";
+            const kana = item["ふりがな"] || "";
+            return name.startsWith(keyword) || kana.startsWith(keyword);
+        });
+
+        results.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item["番号"];
+            option.textContent = item["名前"];
+            select.appendChild(option);
+        });
+    });
+
+    // 候補を選んだらデータを反映
+    document.getElementById("customerSelect").addEventListener("change", function () {
+        const number = this.value;
+        if (!number) return;
+
+        const person = customerData.find(item => item["番号"] == number);
+        if (!person) return;
+
+        document.getElementById("numberInput").value = person["番号"] || "";
+        document.getElementById("nameDisplay").value = person["名前"] || "";
+        document.getElementById("noteInput").value = person["備考"] || "";
+        document.getElementById("timeInput").value = person["入店時間"] || "";
+
+        alert(person["名前"] + " さんのデータを読み込みました");
+    });
+
+    // 番号検索（番号を直接入力して検索）
+    document.getElementById("numberInput").addEventListener("input", function () {
+        const number = this.value.trim();
+        if (number === "") return;
+
+        const person = customerData.find(item => item["番号"] == number);
+        if (!person) return;
+
+        document.getElementById("nameDisplay").value = person["名前"] || "";
+        document.getElementById("noteInput").value = person["備考"] || "";
+        document.getElementById("timeInput").value = person["入店時間"] || "";
+    });
+</script>
+</body>
+</html>
+    
+
     <title>2026年度 成人式</title>
 
     <style>

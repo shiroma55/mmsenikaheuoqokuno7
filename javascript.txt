@@ -334,20 +334,17 @@ document.getElementById("nameFile").addEventListener("change", function (e) {
         const data = new Uint8Array(event.target.result);
         const workbook = XLSX.read(data, { type: "array" });
 
-        // 最初のシートを読み込む
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
 
-        // JSON に変換
-        customerData = XLSX.utils.sheet_to_json(sheet);
-
-        // 名前検索エリアを表示
-        document.getElementById("customerSearchArea").style.display = "block";
+        // JSON に変換して persons に入れる（ここが最重要）
+        persons = XLSX.utils.sheet_to_json(sheet);
 
         alert("お客様データを読み込みました");
     };
 
     reader.readAsArrayBuffer(file);
+});
 });
 
 // ------------------------------
@@ -401,4 +398,5 @@ document.getElementById("customerSelect").addEventListener("change", function ()
 </body>
 
 </html>
+
 

@@ -320,7 +320,8 @@
 // ------------------------------
 // Excel 読み込み用の変数
 // ------------------------------
-let customerData = []; // お客様データを保存する配列
+let customerData = []; // ← これは使わないなら削除してOK
+let persons = [];      // ★ これが必要（最重要）
 
 // ------------------------------
 // お客様データファイル読み込み
@@ -328,6 +329,7 @@ let customerData = []; // お客様データを保存する配列
 document.getElementById("nameFile").addEventListener("change", function (e) {
     const file = e.target.files[0];
     if (!file) return;
+
 
     const reader = new FileReader();
     reader.onload = function (event) {
@@ -398,6 +400,7 @@ document.getElementById("customerSelect").addEventListener("change", function ()
 </body>
 
 </html>
+
 
 
 

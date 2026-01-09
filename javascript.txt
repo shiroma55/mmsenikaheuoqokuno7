@@ -330,7 +330,6 @@ document.getElementById("nameFile").addEventListener("change", function (e) {
     const file = e.target.files[0];
     if (!file) return;
 
-
     const reader = new FileReader();
     reader.onload = function (event) {
         const data = new Uint8Array(event.target.result);
@@ -400,6 +399,7 @@ document.getElementById("customerSelect").addEventListener("change", function ()
 </body>
 
 </html>
+
 
 
 

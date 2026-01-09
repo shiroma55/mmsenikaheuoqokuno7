@@ -1,3 +1,4 @@
+let customerList = [];
 async function loadStaff() {
     const response = await fetch('staff.csv');
     const text = await response.text();
@@ -25,3 +26,50 @@ async function loadStaff() {
 }
 
 window.onload = loadStaff;
+// ------------------------------
+// 名前データを保存する配列
+// ------------------------------
+let customerList = [];
+
+// ------------------------------
+// 名前データ（CSV）読み込み
+// ------------------------------
+document.getElementById("nameFile").addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function () {
+        const lines = reader.result.trim().split("\n");
+        customerList = lines.slice(1).map(line => {
+            const [number, name] = line.split(",");
+            return { number, name };
+        });
+        alert("名前データを読み込みました");
+    };
+    reader.readAsText(file);
+});
+
+// ------------------------------
+// 検索ボタンの処理
+// ------------------------------
+document.getElementById("searchButton").addEventListener("click", function () {
+    const keyword = document.getElementById("searchInput").value.trim();
+
+    if (!keyword) {
+        alert("名前を入力してください");
+        return;
+    }
+
+    const result = customerList.filter(c =>
+        c.name.includes(keyword)
+    );
+
+    if (result.length === 0) {
+        alert("該当する名前が見つかりません");
+    } else {
+        alert(result.length + "件見つかりました\n" +
+            result.map(r => `${r.number} : ${r.name}`).join("\n")
+        );
+    }
+});

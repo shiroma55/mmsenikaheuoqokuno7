@@ -325,7 +325,7 @@ let customerData = []; // お客様データを保存する配列
 // ------------------------------
 // お客様データファイル読み込み
 // ------------------------------
-document.getElementById("customerFile").addEventListener("change", function (e) {
+document.getElementById("nameFile").addEventListener("change", function (e) {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -401,3 +401,4 @@ document.getElementById("customerSelect").addEventListener("change", function ()
 </body>
 
 </html>
+

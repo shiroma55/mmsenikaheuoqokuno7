@@ -345,7 +345,7 @@ document.getElementById("nameFile").addEventListener("change", function (e) {
 
     reader.readAsArrayBuffer(file);
 });
-});
+
 
 // ------------------------------
 // 名前検索（ひらがな・漢字の先頭一致）
@@ -398,5 +398,6 @@ document.getElementById("customerSelect").addEventListener("change", function ()
 </body>
 
 </html>
+
 
 
